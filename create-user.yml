@@ -9,3 +9,26 @@
         comment: Service account for Ansible
         state: present
         system: True
+
+    - name: .ssh directory is present in svcansible home and has the correct permissions
+      file:
+        path: /var/lib/svcansible/.ssh
+        state: directory
+        owner: svcansible
+        group: svcansible
+
+    - name: authorized_keys is present and has the correct permissions
+      copy:
+        dest: /var/lib/svcansible/.ssh/authorized_keys
+        content: "{{ svcansible_public_key }}"
+        owner: svcansible
+        group: svcansible
+        mode: '0600'
+
+    - name: svcansible is included in sudoers.d
+      copy:
+        dest: /etc/sudoers.d/svcansible
+        content: "svcansible ALL=(ALL) NOPASSWD: ALL"
+        owner: root
+        group: root
+        mode: 'ug+rwX,o='
