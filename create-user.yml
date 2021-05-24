@@ -18,12 +18,10 @@
         group: svcansible
 
     - name: authorized_keys is present and has the correct permissions
-      copy:
-        dest: /var/lib/svcansible/.ssh/authorized_keys
-        content: "{{ svcansible_public_key }}\n"
-        owner: svcansible
-        group: svcansible
-        mode: '0600'
+      ansible.posix.authorized_key:
+        user: svcansible
+        state: present
+        key: "{{ svcansible_public_key }}"
 
     - name: svcansible is included in sudoers.d
       copy:
