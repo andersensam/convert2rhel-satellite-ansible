@@ -1,5 +1,5 @@
 ---
-- name: Test access to hosts running CentOS
+- name: Test access to hosts running CentOS/Oracle
   hosts: all
   gather_facts: False
   tasks:

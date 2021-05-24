@@ -1,5 +1,5 @@
 ---
-- name: Finish the conversion from CentOS to RHEL
+- name: Finish the conversion to RHEL
   hosts: all
   tasks:
     - name: Execute the Convert2RHEL script

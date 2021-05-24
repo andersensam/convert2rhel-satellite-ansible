@@ -1,5 +1,5 @@
 ---
-- name: Setup the CentOS host to connect to Satellite before running Convert2RHEL
+- name: Setup the host to connect to Satellite before running Convert2RHEL
   hosts: all
   gather_facts: False
   tasks:
