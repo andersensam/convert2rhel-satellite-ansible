@@ -1,6 +1,7 @@
 ---
 - name: Create the Ansible service account on target hosts
   hosts: all
+  gather_facts: False
   tasks:
     - name: service account is present
       user:

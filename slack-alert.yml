@@ -1,9 +1,7 @@
 ---
 - name: Slack Messages Playbook
   hosts: all
-  gather_facts: no
-  
-
+  gather_facts: False
   tasks:
     - name: 'Preflight Varible check :: slack_token'
       fail: msg='Please include the slack_token to the variable "slack_token"'
@@ -22,7 +20,6 @@
       run_once: true
       when: 'slackuser is not defined'
 
-
     - name: Send Alert to Slack
       slack:
        token: "{{ slack_token }}"
@@ -31,4 +28,3 @@
        username: "{{ slackuser }}"
       run_once: true
       delegate_to: localhost
-© 2021 GitHub, Inc.

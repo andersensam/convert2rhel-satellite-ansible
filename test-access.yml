@@ -1,6 +1,7 @@
 ---
 - name: Test access to hosts running CentOS
   hosts: all
+  gather_facts: False
   tasks:
     - name: Get UID after using 'become'
       command: "whoami"
