@@ -1,5 +1,6 @@
 ---
 - name: Test access to hosts running CentOS
+  hosts: all
   tasks:
     - name: Get UID after using 'become'
       command: "whoami"
