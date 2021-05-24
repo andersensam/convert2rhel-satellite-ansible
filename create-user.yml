@@ -20,7 +20,7 @@
     - name: authorized_keys is present and has the correct permissions
       copy:
         dest: /var/lib/svcansible/.ssh/authorized_keys
-        content: "{{ svcansible_public_key }}"
+        content: "{{ svcansible_public_key }}\n"
         owner: svcansible
         group: svcansible
         mode: '0600'
@@ -28,7 +28,7 @@
     - name: svcansible is included in sudoers.d
       copy:
         dest: /etc/sudoers.d/svcansible
-        content: "svcansible ALL=(ALL) NOPASSWD: ALL"
+        content: "svcansible ALL=(ALL) NOPASSWD: ALL\n"
         owner: root
         group: root
         mode: 'ug+rwX,o='
