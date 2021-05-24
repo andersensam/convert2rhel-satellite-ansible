@@ -5,9 +5,7 @@
     - name: Execute the Convert2RHEL script
       shell: convert2rhel -k "{{ activation_key }}" -o "{{ satellite_org }}" --debug -y
       when: ansible_distribution == 'CentOS' or ansible_distribution == 'OracleLinux'
-
-    - name: Reboot the remote host
-      reboot:
+      notify: Reboot the remote host
 
     - name: Refresh host facts
       setup:
@@ -19,3 +17,7 @@
 
     - include: register-insights.yml
       when: register_to_insights == 'true'
+
+  handlers:
+    - name: Reboot the remote host
+      reboot:
