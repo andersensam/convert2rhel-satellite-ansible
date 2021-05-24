@@ -1,0 +1,14 @@
+---
+- name: Setup the CentOS host to connect to Satellite before running Convert2RHEL
+  hosts: all
+  tasks:
+    - name: Ensure the Convert2RHEL directories exist
+      file:
+        path: /usr/share/convert2rhel/subscription-manager
+        state: directory
+
+    - name: Download the Satellite CA RPM
+      get_url:
+        url: "{{ satellite_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
+        dest: /usr/share/convert2rhel/subscription-manager/katello-ca-consumer-latest.noarch.rpm
+        validate_certs: False
