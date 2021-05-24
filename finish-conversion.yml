@@ -1,0 +1,17 @@
+---
+- name: Finish the conversion from CentOS to RHEL
+  hosts: all
+  tasks:
+    - name: Execute the Convert2RHEL script
+      shell: convert2rhel -k "{{ activation_key }}" -o "{{ satellite_org }}" --debug -y
+
+    - name: Reboot the remote host
+      reboot:
+
+    - name: Refresh host facts
+      setup:
+
+    - name: Validate the host is now running RHEL
+      fail:
+        msg: "Remote host is still running CentOS"
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'OracleLinux'
