@@ -9,14 +9,7 @@
         comment: Service account for Ansible
         state: present
         system: True
-
-    - name: .ssh directory is present in svcansible home and has the correct permissions
-      file:
-        path: /var/lib/svcansible/.ssh
-        state: directory
-        owner: svcansible
-        group: svcansible
-
+        
     - name: authorized_keys is present and has the correct permissions
       ansible.posix.authorized_key:
         user: svcansible
