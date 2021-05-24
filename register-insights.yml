@@ -1,0 +1,8 @@
+---
+- name: Ensure the insights-client package is installed
+  yum:
+    name: insights-client
+    state: present
+
+- name: Enable the Insights client and register
+  command: insights-client --register
