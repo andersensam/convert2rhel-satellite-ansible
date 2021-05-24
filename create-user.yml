@@ -2,24 +2,25 @@
 - name: Create the Ansible service account on target hosts
   hosts: all
   tasks:
-    - name: svcansible user is present
+    - name: service account is present
       user:
-        name: svcansible
-        home: /var/lib/svcansible
+        name: "{{ svcansible_username }}"
+        home: "/var/lib/{{ svcansible_home }}"
         comment: Service account for Ansible
         state: present
         system: True
-        
-    - name: authorized_keys is present and has the correct permissions
+
+    - name: The public key for the service account is present
       ansible.posix.authorized_key:
-        user: svcansible
+        user: "{{ svcansible_username }}"
         state: present
         key: "{{ svcansible_public_key }}"
 
     - name: svcansible is included in sudoers.d
       copy:
-        dest: /etc/sudoers.d/svcansible
-        content: "svcansible ALL=(ALL) NOPASSWD: ALL\n"
+        dest: "/etc/sudoers.d/{{ svcansible_username }}"
+        content: "{{ svcansible_username }} ALL=(ALL) NOPASSWD: ALL\n"
         owner: root
         group: root
         mode: 'ug+rwX,o='
+      when: svcansible_sudoer == 'true'
