@@ -1,0 +1,11 @@
+---
+- name: Test access to hosts running CentOS
+  tasks:
+    - name: Get UID after using 'become'
+      command: "whoami"
+      register: ansible_uid
+
+    - name: Ensure that the user is actually root
+      fail:
+        msg: "The current user is NOT root. The user is: {{ ansible_uid.stdout }}"
+      when: ansible_uid.stdout != 'root'
