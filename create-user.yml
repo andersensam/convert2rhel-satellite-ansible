@@ -1,0 +1,11 @@
+---
+- name: Create the Ansible service account on target hosts
+  hosts: all
+  tasks:
+    - name: svcansible user is present
+      user:
+        name: svcansible
+        home: /var/lib/svcansible
+        comment: Service account for Ansible
+        state: present
+        system: True
