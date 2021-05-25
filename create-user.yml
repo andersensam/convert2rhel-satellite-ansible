@@ -12,7 +12,7 @@
         system: True
 
     - name: The public key for the service account is present
-      ansible.posix.authorized_key:
+      authorized_key:
         user: "{{ svcansible_username }}"
         state: present
         key: "{{ svcansible_public_key }}"

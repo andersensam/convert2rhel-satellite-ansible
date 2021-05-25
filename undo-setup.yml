@@ -1,0 +1,38 @@
+---
+- name: Playbook to undo changes made before running 'convert2rhel'
+  hosts: all
+  tasks:
+    - name: Service account is removed
+      user:
+        name: "{{ svcansible_username }}"
+        state: absent 
+
+    - name: Service account home directory is deleted
+      file:
+        path: "{{ svcansible_home }}/{{ svcansible_username }}"
+        state: absent
+
+    - name: Service account is not in /etc/sudoers.d
+      file:
+        path: "/etc/sudoers.d/{{ svcansible_username }}"
+        state: absent
+
+    - name: Convert2RHEL is not present on the remote host
+      yum:
+        name: 'convert2rhel'
+        state: absent
+
+    - name: The Convert2RHEL repo is not present
+      yum_repository:
+        name: convert2rhel
+        state: absent
+
+    - name: The Red Hat GPG key is deleted
+      file:
+        path: "/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release"
+        state: absent
+
+    - name: The Convert2RHEL directory is absent
+      file:
+        path: "/usr/share/convert2rhel"
+        state: absent
