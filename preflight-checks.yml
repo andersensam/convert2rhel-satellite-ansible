@@ -1,0 +1,48 @@
+---
+- name: Variable activation_key is defined
+  fail:
+    msg: "The variable 'activation_key' is not defined!"
+  run_once: True
+  when: activation_key is not defined
+
+- name: Variable register_to_insights is defined
+  fail:
+    msg: "The variable 'register_to_insights' is not defined!"
+  run_once: True
+  when: register_to_insights is not defined
+
+- name: Variable satellite_org is defined
+  fail:
+    msg: "The variable 'satellite_org' is not defined!"
+  run_once: True
+  when: satellite_org is not defined
+
+- name: Variable satellite_url is defined
+  fail:
+    msg: "The variable 'satellite_url' is not defined!"
+  run_once: True
+  when: satellite_url is not defined
+
+- name: Variable svcansible_home is defined
+  fail:
+    msg: "The variable 'svcansible_home' is not defined!"
+  run_once: True
+  when: svcansible_home is not defined
+
+- name: Variable svcansible_public_key is defined
+  fail:
+    msg: "The variable 'svcansible_public_key' is not defined!"
+  run_once: True
+  when: svcansible_public_key is not defined
+
+- name: Variable svcansible_sudoer is defined
+  fail:
+    msg: "The variable 'svcansible_sudoer' is not defined!"
+  run_once: True
+  when: svcansible_sudoer is not defined
+
+- name: Variable svcansible_username is defined
+  fail:
+    msg: "The variable 'svcansible_username' is not defined!"
+  run_once: True
+  when: svcansible_username is not defined

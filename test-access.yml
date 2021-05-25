@@ -3,6 +3,8 @@
   hosts: all
   gather_facts: False
   tasks:
+    - include: preflight-checks.yml
+
     - name: Get UID after using 'become'
       command: "whoami"
       register: ansible_uid
