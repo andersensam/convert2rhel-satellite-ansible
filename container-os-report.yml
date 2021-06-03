@@ -7,4 +7,4 @@
       yum:
         name: '@container-tools'
         state: present
-      when: 'container_hosts' in group_names
+      when: "'container_hosts' in group_names"
