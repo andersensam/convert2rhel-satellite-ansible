@@ -10,11 +10,11 @@
           name: '@container-tools'
           state: present
 
-      - name: Port 8080 is exposed
+      - name: Port {{ target_port }} is exposed
         firewalld:
-          port: 8080/tcp
+          port: "{{ target_port }}/tcp"
           state: enabled
           immediate: yes
-          
+
       run_once: True
       delegate_to: "{{ container_host }}"

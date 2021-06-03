@@ -28,6 +28,6 @@
           volume:
             - "{{ home_dir }}/os-report:/var/report:Z"
           ports:
-            - "8080:8080"
+            - "{{ target_port }}:8080"
       run_once: True
       delegate_to: "{{ container_host }}"
