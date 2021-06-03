@@ -6,7 +6,7 @@
     - name: registries.conf is present 
       copy:
         dest: "{{ home_dir }}/.local/share/containers/registries.conf"
-        contents: -<
+        content: -<
           [registries.search]
           registries = ['quay.io, 'docker.io']
       when: "'container_hosts' in group_names"
