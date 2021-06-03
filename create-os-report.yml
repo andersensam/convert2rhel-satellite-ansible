@@ -3,11 +3,7 @@
   hosts: all
   gather_facts: true
   tasks:
-    - name: Get home directory for executing user
-      debug: var=lookup('env','HOME')
-      register: home_dir
-      when: "'container_hosts' in group_names"
-
+    - name: registries.conf is present
     - name: OS Report directory is present
       file:
         path: "{{ home_dir }}/os-report"
@@ -17,7 +13,7 @@
     - name: HTML report is created
       template:
         src: report-osversion.j2
-        dest: "{{ home_dir }}/os-report"
+        dest: "{{ home_dir }}/os-report/index.html"
       when: "'container_hosts' in group_names"
 
     - name: OS Report container is launched
