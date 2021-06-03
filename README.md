@@ -9,10 +9,13 @@ Example:
 ![image](https://user-images.githubusercontent.com/17077661/120725650-4ca03c80-c48b-11eb-89b1-aca039e95f8b.png)
 
 
-
-Steps:
- 1 - install podman on target container host.  install-podman.yml
-     target_port: 8081) # target mapping port for firewalld to container exposure
+Steps for OS report:
+ 1 - install podman on target container host. This can be done via playbook --- install-podman.yml (Makes sure container-tools installed and opens firewalld port defined to access report
+     VARS TO BE DEFINED:
+     <pre class="line-number language-yaml"><code>
+     container_host: podmanserver    # Host in inventory that is RHEL8 and where you want a container spun up for HTML report
+     target_port: 8081               # Port to xlate to container port 8080 
+     </code></pre>
  2 - generate report against target inventory  create-os-report.yml
      (Var to be defined :
       container_host: towerhost  # host in inventory for temp container report
