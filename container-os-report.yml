@@ -8,3 +8,8 @@
         name: '@container-tools'
         state: present
       when: "'container_hosts' in group_names"
+
+    - name: OS Report directory is present
+      file:
+        path: "{{ ansible_env.HOME }}/os-report"
+        state: directory
