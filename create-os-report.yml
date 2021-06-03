@@ -3,6 +3,14 @@
   hosts: all
   gather_facts: true
   tasks:
+    - name: registries.conf is present 
+      copy:
+        dest: "{{ home_dir }}/.local/share/containers/registries.conf"
+        contents: -<
+          [registries.search]
+          registries = ['quay.io, 'docker.io']
+      when: "'container_hosts' in group_names"
+
     - name: OS Report directory is present
       file:
         path: "{{ home_dir }}/os-report"
@@ -24,4 +32,4 @@
           - "{{ home_dir }}/os-report:/var/os-report"
         expose:
           - 8080
-      when: 1 == 2
+      when: "'container_hosts' in group_names"
