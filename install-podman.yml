@@ -1,0 +1,10 @@
+---
+- name: Install podman on the target host
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Podman is installed
+      yum:
+        name: '@container-tools'
+        state: present
+      when: "'container_hosts' in group_names"

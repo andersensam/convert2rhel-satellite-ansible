@@ -1,0 +1,26 @@
+---
+- name: Generate the OS report for container-based consumption
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: OS Report directory is present
+      file:
+        path: lookup('env','HOME')/os-report
+        state: directory
+      when: "'container_hosts' in group_names"
+
+    - name: HTML report is created
+      template:
+        src: report-osversion.j2
+        dest: lookup('env','HOME')/os-report
+      when: "'container_hosts' in group_names"
+
+    - name: OS Report container is launched
+      containers.podman.podman_container:
+        name: os-report
+        image: quay.io/samander/convert2rhel-os-report:latest
+        state: started
+        volume:
+          - lookup('env','HOME')/os-report:/var/os-report
+        expose:
+          - 8080
