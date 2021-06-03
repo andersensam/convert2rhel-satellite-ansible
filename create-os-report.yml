@@ -3,7 +3,6 @@
   hosts: all
   gather_facts: true
   tasks:
-    - name: registries.conf is present
     - name: OS Report directory is present
       file:
         path: "{{ home_dir }}/os-report"
