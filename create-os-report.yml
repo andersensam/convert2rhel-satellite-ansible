@@ -13,7 +13,7 @@
         dest: "{{ home_dir }}/.local/share/containers/registries.conf"
         content: |
           [registries.search]
-          registries = ['quay.io, 'docker.io']
+          registries = ['quay.io', 'docker.io']
       when: "'container_hosts' in group_names"
 
     - name: OS Report directory is present
@@ -31,7 +31,7 @@
     - name: OS Report container is launched
       containers.podman.podman_container:
         name: os-report
-        image: quay.io/samander/convert2rhel-os-report:latest
+        image: quay.io/samander/convert2rhel-os-dashboard:latest
         state: started
         volume:
           - "{{ home_dir }}/os-report:/var/os-report"
