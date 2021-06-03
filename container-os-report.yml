@@ -7,4 +7,4 @@
       yum:
         name: '@container-tools'
         state: present
-      when: ansible_facts.container_host == 'true'
+      when: container_host == 'true'
