@@ -11,7 +11,8 @@ Example:
 
 Steps for OS report:
  1 - install podman on target container host. This can be done via playbook --- install-podman.yml (Makes sure container-tools installed and opens firewalld port defined to access report
-     VARS TO BE DEFINED:
+     
+  <B>VARS TO BE DEFINED: </B>
      <pre class="line-number language-yaml"><code>
      container_host: podmanserver    # Host in inventory that is RHEL8 and where you want a container spun up for HTML report
      target_port: 8081               # Port to xlate to container port 8080 
