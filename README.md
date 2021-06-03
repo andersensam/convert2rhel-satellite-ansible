@@ -15,7 +15,7 @@ Steps for OS report:
 
 <B>1 - Install podman on target container host and open port for HTML access. </B>
  
-     This can be done via playbook --- install-podman.yml (Makes sure container-tools installed and opens firewalld port defined to access report
+    PLAYBOOK: install-podman.yml 
      
   <B>VARS TO BE DEFINED: </B>
      <pre class="line-number language-yaml"><code>
