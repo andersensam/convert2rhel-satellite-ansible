@@ -13,7 +13,7 @@ This checks an inventory for family of OS and creates a report review in a conat
 
 Steps for OS report:
 
-<B>1 - install podman on target container host. </B>
+<B>1 - Install podman on target container host and open port for HTML access. </B>
  
      This can be done via playbook --- install-podman.yml (Makes sure container-tools installed and opens firewalld port defined to access report
      
