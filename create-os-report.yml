@@ -21,13 +21,11 @@
         fail: msg='Please include the channel to the variable "channel"'
         run_once: true
         when: 'channel is not defined'
-      - name: 'Preflight Varible check :: channel'
+      - name: 'Preflight Varible check :: slackuser'
         fail: msg='Please include the slackuser to the variable "slackuser"'
         run_once: true
         when: 'slackuser is not defined'
-      when: 'slack_toker is defined'
-
-
+      when: 'slack_token is defined'
 
 
     - name: Create the OS report and limit it to the container host
@@ -59,7 +57,7 @@
       - name: Sending URL link to Slack for Reports
         slack:
          token: "{{ slack_token }}"
-         msg: "{{ message }}"
+         msg: 'OS Report generated http://{{container_host}}:{{target_port}}'
          channel: "{{ channel }}"
          username: "{{ slackuser }}"
         run_once: true
