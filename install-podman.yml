@@ -8,3 +8,10 @@
         name: '@container-tools'
         state: present
       when: "'container_hosts' in group_names"
+
+    - name: Port 8080 is exposed
+      firewalld:
+        port: 8080/tcp
+        state: enabled
+        permanent: yes
+        immediate: yes
