@@ -1,7 +1,7 @@
 ---
 - name: Create Linux OS report for consumption in a container
   hosts: all
-  gather_facts: true
+  gather_facts: false
   tasks:
     - name: Podman is installed
       yum:
