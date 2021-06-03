@@ -3,7 +3,8 @@ Use Ansible Tower to convert CentOS systems to RHEL and register to Satellite an
 
 Thanks to Andrew Schoenfeld and Tony Harris!
 
-<B> OS Reports </B>
+<B> OS Reports:</B>
+
 This checks an inventory for family of OS and creates a report review in a conatiner running on designed container host.
 Example:
 ![image](https://user-images.githubusercontent.com/17077661/120725650-4ca03c80-c48b-11eb-89b1-aca039e95f8b.png)
