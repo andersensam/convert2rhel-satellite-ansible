@@ -11,5 +11,5 @@
 
     - name: OS Report directory is present
       file:
-        path: "{{ ansible_env.HOME }}/os-report"
+        path: lookup('env','HOME')/os-report
         state: directory
