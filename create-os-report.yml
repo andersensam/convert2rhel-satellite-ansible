@@ -3,16 +3,21 @@
   hosts: all
   gather_facts: true
   tasks:
+    - name: Get home directory for executing user
+      debug: var=lookup('env','HOME')
+      register: home_dir
+      when: "'container_hosts' in group_names"
+
     - name: OS Report directory is present
       file:
-        path: lookup('env','HOME')/os-report
+        path: "{{ home_dir }}/os-report"
         state: directory
       when: "'container_hosts' in group_names"
 
     - name: HTML report is created
       template:
         src: report-osversion.j2
-        dest: lookup('env','HOME')/os-report
+        dest: "{{ home_dir }}/os-report"
       when: "'container_hosts' in group_names"
 
     - name: OS Report container is launched
@@ -21,6 +26,7 @@
         image: quay.io/samander/convert2rhel-os-report:latest
         state: started
         volume:
-          - lookup('env','HOME')/os-report:/var/os-report
+          - "{{ home_dir }}/os-report:/var/os-report"
         expose:
           - 8080
+      when: 1 == 2
