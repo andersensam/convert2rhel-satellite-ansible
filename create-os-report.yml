@@ -3,6 +3,11 @@
   hosts: all
   gather_facts: true
   tasks:
+    - name: Local container config directories exist
+      file:
+        path: "{{ home_dir }}/.local/share/containers"
+        state: directory
+        
     - name: registries.conf is present 
       copy:
         dest: "{{ home_dir }}/.local/share/containers/registries.conf"
