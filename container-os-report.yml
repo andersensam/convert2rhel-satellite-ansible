@@ -6,10 +6,10 @@
     - name: Podman is installed
       yum:
         name: '@container-tools'
-        state: present
+        state: absent
       when: "'container_hosts' in group_names"
 
     - name: OS Report directory is present
       file:
         path: lookup('env','HOME')/os-report
-        state: directory
+        state: absent
