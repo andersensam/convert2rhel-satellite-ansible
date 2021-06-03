@@ -1,0 +1,10 @@
+---
+- name: Create Linux OS report for consumption in a container
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Podman is installed
+      yum:
+        name: '@container-tools'
+        state: present
+      when: ansible_facts.container_host == 'true'
