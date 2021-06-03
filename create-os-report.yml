@@ -34,7 +34,7 @@
         image: quay.io/samander/convert2rhel-os-dashboard:latest
         state: started
         volume:
-          - "{{ home_dir }}/os-report:/var/os-report"
-        expose:
-          - 8080
+          - "{{ home_dir }}/os-report:/var/report:Z"
+        ports:
+          - "8080:8080"
       when: "'container_hosts' in group_names"
