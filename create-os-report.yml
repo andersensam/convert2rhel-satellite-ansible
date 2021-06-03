@@ -18,8 +18,14 @@
 
     - name: OS Report directory is present
       file:
-        path: "{{ home_dir }}/os-report"
+        path: "{{ home_dir }}/os-report/css"
         state: directory
+      when: "'container_hosts' in group_names"
+
+    - name: CSS is present on remote host
+      copy:
+        src: CSS/main.css
+        dest: "{{ home_dir }}/os-report/css/main.css"
       when: "'container_hosts' in group_names"
 
     - name: HTML report is created
