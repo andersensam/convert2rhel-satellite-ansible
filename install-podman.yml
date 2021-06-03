@@ -3,15 +3,18 @@
   hosts: all
   gather_facts: false
   tasks:
-    - name: Podman is installed
-      yum:
-        name: '@container-tools'
-        state: present
-      when: "'container_hosts' in group_names"
+    - name: Install podman on {{ container_host }}
+      block:
+      - name: Podman is installed
+        yum:
+          name: '@container-tools'
+          state: present
 
-    - name: Port 8080 is exposed
-      firewalld:
-        port: 8080/tcp
-        state: enabled
-        immediate: yes
-      when: "'container_hosts' in group_names"
+      - name: Port 8080 is exposed
+        firewalld:
+          port: 8080/tcp
+          state: enabled
+          immediate: yes
+          
+      run_once: True
+      delegate_to: "{{ container_host }}"

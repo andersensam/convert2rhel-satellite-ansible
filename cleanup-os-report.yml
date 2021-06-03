@@ -1,14 +1,18 @@
 ---
 - name: Cleanup the containerized OS Report
-  hosts: container_hosts
+  hosts: all
   gather_facts: False
   tasks:
-    - name: Stop the OS Report container
-      containers.podman.podman_container:
-        name: os-report
-        state: stopped
-    
-    - name: The os-report directory is removed
-      file:
-        path: "{{ home_dir }}/os-report"
-        state: absent
+    - name: Cleanup container config
+      block:
+      - name: Stop the OS Report container
+        containers.podman.podman_container:
+          name: os-report
+          state: stopped
+      
+      - name: The os-report directory is removed
+        file:
+          path: "{{ home_dir }}/os-report"
+          state: absent
+      run_once: True
+      delegate_to: "{{ container_host }}"

@@ -3,44 +3,31 @@
   hosts: all
   gather_facts: true
   tasks:
-    - name: Local container config directories exist
-      file:
-        path: "{{ home_dir }}/.local/share/containers"
-        state: directory
+    - name: Create the OS report and limit it to the container host
+      block:
+      - name: OS Report directory is present
+        file:
+          path: "{{ home_dir }}/os-report/css"
+          state: directory
 
-    - name: registries.conf is present 
-      copy:
-        dest: "{{ home_dir }}/.local/share/containers/registries.conf"
-        content: |
-          [registries.search]
-          registries = ['quay.io', 'docker.io']
-      when: "'container_hosts' in group_names"
+      - name: CSS is present on remote host
+        copy:
+          src: CSS/main.css
+          dest: "{{ home_dir }}/os-report/css/main.css"
 
-    - name: OS Report directory is present
-      file:
-        path: "{{ home_dir }}/os-report/css"
-        state: directory
-      when: "'container_hosts' in group_names"
+      - name: HTML report is created
+        template:
+          src: report-osversion.j2
+          dest: "{{ home_dir }}/os-report/index.html"
 
-    - name: CSS is present on remote host
-      copy:
-        src: CSS/main.css
-        dest: "{{ home_dir }}/os-report/css/main.css"
-      when: "'container_hosts' in group_names"
-
-    - name: HTML report is created
-      template:
-        src: report-osversion.j2
-        dest: "{{ home_dir }}/os-report/index.html"
-      when: "'container_hosts' in group_names"
-
-    - name: OS Report container is launched
-      containers.podman.podman_container:
-        name: os-report
-        image: quay.io/samander/convert2rhel-os-dashboard:latest
-        state: started
-        volume:
-          - "{{ home_dir }}/os-report:/var/report:Z"
-        ports:
-          - "8080:8080"
-      when: "'container_hosts' in group_names"
+      - name: OS Report container is launched
+        containers.podman.podman_container:
+          name: os-report
+          image: quay.io/samander/convert2rhel-os-dashboard:latest
+          state: started
+          volume:
+            - "{{ home_dir }}/os-report:/var/report:Z"
+          ports:
+            - "8080:8080"
+      run_once: True
+      delegate_to: "{{ container_host }}"
