@@ -15,3 +15,4 @@
         state: enabled
         permanent: yes
         immediate: yes
+      when: "'container_hosts' in group_names"
