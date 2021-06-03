@@ -57,7 +57,7 @@
       - name: Sending URL link to Slack for Reports
         slack:
          token: "{{ slack_token }}"
-         msg: 'OS Report generated http://{{container_host}}:{{target_port}}'
+         msg: 'OS Inventory Report generated at http://{{container_host}}:{{target_port}}'
          channel: "{{ channel }}"
          username: "{{ slackuser }}"
         run_once: true
