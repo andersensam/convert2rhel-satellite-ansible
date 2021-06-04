@@ -3,6 +3,8 @@
   hosts: all
   gather_facts: False
   tasks:
+    - include: preflight-checks-os-report.yml
+    
     - name: Cleanup container config
       block:
       - name: Stop the OS Report container
