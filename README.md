@@ -18,10 +18,9 @@ Steps for OS report:
 PLAYBOOK: install-podman.yml 
      
 <B>VARS TO BE DEFINED: </B>
-     <pre class="line-number language-yaml"><code>
-     container_host: podmanserver    # Host in inventory that is RHEL8 and where you want a container spun up for HTML report
-     target_port: 8081               # Port to xlate to container port 8080 
-     </code></pre>
+<pre class="line-number language-yaml"><code>container_host: podmanserver    # Host in inventory that is RHEL8 and where you want a container spun up for HTML report
+target_port: 8081               # Port to xlate to container port 8080 
+</code></pre>
 
 <B>2 - Generate report against target inventory</B>
 
