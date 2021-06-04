@@ -16,7 +16,7 @@ This checks an inventory for family of OS and creates a report review in a conat
 ![image](https://user-images.githubusercontent.com/17077661/120725650-4ca03c80-c48b-11eb-89b1-aca039e95f8b.png)
 
 
-##Steps for OS report:
+## Steps for OS report:
 
 <B>1 - Install podman on target container host and open port for HTML access. </B>
  
@@ -31,16 +31,16 @@ target_port: 8081               # Port to xlate to container port 8080
 
 PLAYBOOK: create-os-report.yml
  
-##VARS TO BE DEFINED: 
+## VARS TO BE DEFINED: 
 
 <pre class="line-number language-yaml"><code>container_host: podmanserver    # Host in inventory that is RHEL8 and where you want a container spun up for HTML report
 home_dir: /var/lib/tmp/         # directory user can access for container
 target_port: 8081               # Port to xlate to container port 8080
 </code></pre>
 
-##OPTIONAL STEP FOR SLACK ALERTS: 
+## OPTIONAL STEP FOR SLACK ALERTS: 
 
-##CREATE CUSTOM CREDS FOR SLACK API CALL:
+## CREATE CUSTOM CREDS FOR SLACK API CALL:
 
 INPUT CONFIGURATION:
 
