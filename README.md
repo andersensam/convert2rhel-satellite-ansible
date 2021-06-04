@@ -28,11 +28,10 @@ PLAYBOOK: create-os-report.yml
  
 <B>VARS TO BE DEFINED: </B>
 
-     <pre class="line-number language-yaml"><code>
-     container_host: podmanserver    # Host in inventory that is RHEL8 and where you want a container spun up for HTML report
-     home_dir: /var/lib/tmp/         # directory user can access for container
-     target_port: 8081               # Port to xlate to container port 8080
-     </code></pre>
+<pre class="line-number language-yaml"><code>container_host: podmanserver    # Host in inventory that is RHEL8 and where you want a container spun up for HTML report
+home_dir: /var/lib/tmp/         # directory user can access for container
+target_port: 8081               # Port to xlate to container port 8080
+</code></pre>
 
 <B>OPTIONAL STEP FOR SLACK ALERTS: </B>
 
