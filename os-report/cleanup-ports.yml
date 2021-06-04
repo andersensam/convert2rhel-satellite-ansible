@@ -1,0 +1,12 @@
+---
+- name: Playbook to close ports opened for OS Report
+  hosts: all
+  gather_facts: False
+  tasks:
+    - name: Close port {{ target_port }} on {{ container_host }}
+      firewalld:
+        port: "{{ target_port }}/tcp"
+        state: disabled
+        immediate: True
+      run_once: True
+      delegate_to: "{{ container_host }}"
