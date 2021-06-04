@@ -1,7 +1,13 @@
 # os-report
 This folder contains everything you need to run a report against and inventory for Linux OS Types
-
-
+<pre class="line-number language-yaml"><code>
+cleanup-os-report.yml           # this removes container and home directory
+cleanup-ports.yml               # Needs Privledge escalation to close port
+create-os-report.yml            # Main playbook to create HTML report on container host (See Below)
+install-podman.yml              # Install Podman and map port for HTML container report
+preflight-checks-os-report.yml  # Playbook for checking variable defined before launch
+report-osversion.j2             # jinja2 template for HTML report creation
+</code></pre>
 <B> OS Reports:</B>
 
 This checks an inventory for family of OS and creates a report review in a conatiner running on designed container host.
