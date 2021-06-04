@@ -1,7 +1,6 @@
-# convert2rhel-satellite-ansible
-Use Ansible Tower to convert CentOS systems to RHEL and register to Satellite and Insights (cloud.redhat.com)
+# os-report
+This folder contains everything you need to run a report against and inventory for Linux OS Types
 
-Thanks to Andrew Schoenfeld and Tony Harris!
 
 <B> OS Reports:</B>
 
@@ -63,5 +62,4 @@ slackuser: Ansible Contoller   # Username that shows up as posted message in Sla
 
 
 
- For Convert2rhel process include reg to Satellite plus insights (cloud.redhat.com)
  
