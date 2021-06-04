@@ -4,5 +4,9 @@
     name: insights-client
     state: present
 
+#- name: Enable the Insights client and register
+#  command: insights-client --register
+
 - name: Enable the Insights client and register
-  command: insights-client --register
+  insights_config:
+    display_name: "{{ inventory_hostname }}"
