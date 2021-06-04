@@ -51,7 +51,9 @@ INJECTOR CONFIGURATION:
   slack_token: '{{ slack_token }}'
 </code></pre>
 
-<B> ADDITIONAL VARIABLES THAT NEED TO BE DEFINED IN TEMPLATE </B>
+<B> ADDITIONAL VARIABLES THAT NEED TO BE DEFINED IN TEMPLATE WHEN SENDING SLACK ALERT </B>
+![image](https://user-images.githubusercontent.com/17077661/120726995-4790bc80-c48e-11eb-818b-d9b60e02d188.png)
+
 
 <pre class="line-number language-yaml"><code>channel: '#Toweralerts'        # Channel that you want to send the Slack Alert to
 slackuser: Ansible Contoller   # Username that shows up as posted message in Slack
