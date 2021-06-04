@@ -8,3 +8,15 @@ This README is provided to give guidelines on setting up a workflow in Ansible T
 - At least one Content View and Lifecycle Environment exist, with an Activation Key generated for use on remote hosts
 - If using Slack for notifications, a Slack Credential exists within the Tower Vault
 
+## Playbook Overview
+```
+create-user.yml             # Create a service account on the remote host
+finish-conversion.yml       # Finish executing the convert2rhel script
+preflight-checks.yml        # Ensure required variables are defined
+register-insights.yml       # Register RHEL machine to Red Hat Insights
+satellite-host-config.yml   # Prepare host for connection to Satellite
+setup-convert2rhel.yml      # Enable the convert2rhel repo and install required packages
+slack-alert.yml             # Send an alert via Slack
+test-access.yml             # Test connectivity to remote hosts
+undo-setup.yml              # Undo changes made by previous steps
+```
