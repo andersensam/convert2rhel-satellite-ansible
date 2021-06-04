@@ -8,5 +8,5 @@
 #  command: insights-client --register
 
 - name: Enable the Insights client and register
-  insights_config:
+  redhat.insights.insights_config:
     display_name: "{{ inventory_hostname }}"
