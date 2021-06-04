@@ -8,7 +8,7 @@
       - name: Stop the OS Report container
         containers.podman.podman_container:
           name: os-report
-          state: stopped
+          state: absent
       
       - name: The os-report directory is removed
         file:
