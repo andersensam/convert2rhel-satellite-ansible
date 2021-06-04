@@ -7,6 +7,7 @@
       fail: msg='Please include the container_host to the variable "container_host"'
       run_once: true
       when: 'container_host is not defined'
+      
     - name: 'Preflight Varible check :: target_port'
       fail: msg='Please include the target_port to the variable "target_port"'
       run_once: true
