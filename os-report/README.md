@@ -1,4 +1,4 @@
-# os-report
+## os-report
 This folder contains everything you need to run a report against and inventory for Linux OS Types
 <pre class="line-number language-yaml"><code>
 cleanup-os-report.yml           # this removes container and home directory
@@ -8,7 +8,7 @@ install-podman.yml              # Install Podman and map port for HTML container
 preflight-checks-os-report.yml  # Playbook for checking variable defined before launch
 report-osversion.j2             # jinja2 template for HTML report creation
 </code></pre>
-<B> OS Reports:</B>
+## OS Reports:
 
 This checks an inventory for family of OS and creates a report review in a conatiner running on designed container host.
 
@@ -16,31 +16,31 @@ This checks an inventory for family of OS and creates a report review in a conat
 ![image](https://user-images.githubusercontent.com/17077661/120725650-4ca03c80-c48b-11eb-89b1-aca039e95f8b.png)
 
 
-Steps for OS report:
+##Steps for OS report:
 
 <B>1 - Install podman on target container host and open port for HTML access. </B>
  
 PLAYBOOK: install-podman.yml 
      
-<B>VARS TO BE DEFINED: </B>
+## VARS TO BE DEFINED: 
 <pre class="line-number language-yaml"><code>container_host: podmanserver    # Host in inventory that is RHEL8 and where you want a container spun up for HTML report
 target_port: 8081               # Port to xlate to container port 8080 
 </code></pre>
 
-<B>2 - Generate report against target inventory</B>
+## Generate report against target inventory 
 
 PLAYBOOK: create-os-report.yml
  
-<B>VARS TO BE DEFINED: </B>
+##VARS TO BE DEFINED: 
 
 <pre class="line-number language-yaml"><code>container_host: podmanserver    # Host in inventory that is RHEL8 and where you want a container spun up for HTML report
 home_dir: /var/lib/tmp/         # directory user can access for container
 target_port: 8081               # Port to xlate to container port 8080
 </code></pre>
 
-<B>OPTIONAL STEP FOR SLACK ALERTS: </B>
+##OPTIONAL STEP FOR SLACK ALERTS: 
 
-<B> CREATE CUSTOM CREDS FOR SLACK API CALL: </B>
+##CREATE CUSTOM CREDS FOR SLACK API CALL:
 
 INPUT CONFIGURATION:
 
@@ -56,7 +56,7 @@ INJECTOR CONFIGURATION:
   slack_token: '{{ slack_token }}'
 </code></pre>
 
-<B> ADDITIONAL VARIABLES THAT NEED TO BE DEFINED IN TEMPLATE WHEN SENDING SLACK ALERT: </B>
+##ADDITIONAL VARIABLES THAT NEED TO BE DEFINED IN TEMPLATE WHEN SENDING SLACK ALERT: 
 ![image](https://user-images.githubusercontent.com/17077661/120726995-4790bc80-c48e-11eb-818b-d9b60e02d188.png)
 
 
