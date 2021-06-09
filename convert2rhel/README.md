@@ -63,3 +63,4 @@ register_to_insights: 'true'
 ## Other Design Considerations
 When creating Job Templates from the provided playbooks, it is recommended to increase the verbosity to at least `1 (Verbose)`.
 
+Additionally, while the above variables can be defined at the Job Template level, creating them as Surveys at the Workflow Template level is recommended.
