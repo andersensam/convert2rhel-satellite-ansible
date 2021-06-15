@@ -17,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-{% for server in groups[''] %}
+{% for server in groups['running_hosts'] %}
         <tr>
             <td>{{hostvars[server]['ansible_nodename']}}</td>
             <td>{{hostvars[server]['ansible_system']}}</td>
