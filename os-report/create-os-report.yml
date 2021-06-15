@@ -1,6 +1,13 @@
 ---
-- name: Generate the OS report for container-based consumption
+- name: Determine which hosts are active and create a dynamic inventory
   hosts: all
+  gather_facts: false
+  roles:
+    - role: hostalive
+      tags: ['hostalive']
+
+- name: Generate the OS report for container-based consumption
+  hosts: running_hosts # Generated from the previous hostalive role
   gather_facts: true
   tasks:
     - include: preflight-checks-os-report.yml
