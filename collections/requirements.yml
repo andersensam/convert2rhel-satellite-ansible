@@ -2,3 +2,4 @@
 collections:
   - name: containers.podman
   - name: redhat.insights
+  - name: redhat.satellite
