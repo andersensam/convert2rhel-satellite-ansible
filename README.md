@@ -1,7 +1,7 @@
 # convert2rhel-satellite-ansible
 Use Ansible Tower to convert CentOS systems to RHEL and register to Satellite and Insights (cloud.redhat.com)
 
-Thanks to Andrew Schoenfeld and Tony Harris!
+Thanks to Andrew Schoenfeld, Brandon Marlow, and Tony Harris!
 
 
 ## Prerequisites
