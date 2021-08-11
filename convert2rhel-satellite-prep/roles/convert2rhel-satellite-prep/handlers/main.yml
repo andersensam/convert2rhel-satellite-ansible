@@ -1,0 +1,23 @@
+---
+- name: "Ensure Rollback of Location"
+  redhat.satellite.organization:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ satellite_location }}"
+    state: absent
+  when: not satellite_create_location or rollback
+  
+- name: "Ensure Rollback of Organization"
+  redhat.satellite.organization:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ satellite_organization }}"
+    state: absent
+  when: not satellite_create_organization or rollback
+
+
+  

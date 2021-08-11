@@ -1,0 +1,64 @@
+---
+- name: "{{ 'Set Facts for RHEL ' + major_version }}"
+  set_fact:
+    activation_key: "{{ satellite_rhel_activation_key_base_name + major_version }}"
+    product_name: "{{ satellite_centos_product_base_name + major_version }}"
+
+- name: "{{ 'Enable RHEL ' + major_version + ' BaseOS Repo' }}"
+  redhat.satellite.repository_set:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}" 
+    label: "rhel-8-for-x86_64-baseos-rpms"
+    repositories:
+    - releasever: "8"
+  when: major_version == "8"
+
+
+- name: "{{ 'Enable RHEL ' + major_version + ' Server Repo' }}"
+  redhat.satellite.repository_set:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}" 
+    label: "{{ 'rhel-' + major_version + '-server-rpms' }}"
+    repositories:
+    - releasever: "{{ major_version + 'Server' }}"
+      basearch: "x86_64"
+  when: major_version == "6" or major_version == "7"
+
+# unfortunately the manifest does not return if it is SCA or not
+# so we hack around this by trying an actviation key with subs attached
+# if that fails, create the activation key without attaching subs
+
+- name: Create Activation Key
+  block:
+
+  - name: Create Activation Key (no SCA)
+    redhat.satellite.activation_key:
+      username: "{{ satellite_username }}"
+      password: "{{ satellite_password }}"
+      server_url: "{{ satellite_server_url }}"
+      organization: "{{ satellite_organization }}"
+      validate_certs: "{{ satellite_validate_certs }}"
+      name: "{{ activation_key }}"
+      lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+      subscriptions:
+        - name: "{{ product_name }}"
+
+  rescue:
+  - name: Create Activation Key (SCA)
+    redhat.satellite.activation_key:
+      username: "{{ satellite_username }}"
+      password: "{{ satellite_password }}"
+      server_url: "{{ satellite_server_url }}"
+      organization: "{{ satellite_organization }}"
+      validate_certs: "{{ satellite_validate_certs }}"
+      name: "{{ activation_key }}"
+      lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+
+
+

@@ -1,0 +1,61 @@
+---
+- name: "{{ 'Set Facts for CentOS ' + major_version }}"
+  set_fact:
+    product_name: "{{ satellite_centos_product_base_name + major_version }}"
+    repo_name: "{{ satellite_centos_repo_base_name + major_version }}"
+    url: "{{ 'https://ftp.redhat.com/redhat/convert2rhel/' + major_version + '/os' }}"
+    activation_key: "{{ satellite_centos_activation_key_base_name + major_version }}"
+    hostgroup_name: "{{ satellite_centos_hostgroup_base_name + major_version + ' Hosts' }}"
+
+- name: "{{ 'Create CentOS ' + major_version + ' Product' }}"
+  redhat.satellite.product:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ product_name }}"
+
+- name: "{{ 'Create Convert2RHEL ' + major_version + ' Repo' }}"
+  redhat.satellite.repository:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ repo_name }}"
+    content_type: "yum"
+    product: "{{ product_name }}"
+    url: "{{ url }}"
+
+- name: "{{ 'Sync Convert2RHEL ' + major_version + ' Repo' }}"
+  redhat.satellite.repository_sync:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    repository: "{{ repo_name }}"
+    product: "{{ product_name }}"
+
+- name: "{{ 'Create Activation Key for CentOS '+ major_version }}"
+  redhat.satellite.activation_key:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ satellite_centos_activation_key_base_name + major_version }}"
+    lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+
+- name: Create CentOS Host Group for conversion
+  redhat.satellite.hostgroup:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+    activation_keys: 
+      - "{{ activation_key }}"
+    name: "{{ hostgroup_name }}"
