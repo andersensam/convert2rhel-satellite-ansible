@@ -1,0 +1,53 @@
+---
+- name: "{{ 'Set Facts for CentOS ' + major_version }}"
+  set_fact:
+    product_name: "{{ satellite_centos_product_base_name + major_version }}"
+    repo_name: "{{ satellite_centos_repo_base_name + major_version }}"
+    url: "{{ 'https://ftp.redhat.com/redhat/convert2rhel/' + major_version + '/os' }}"
+    activation_key: "{{ satellite_centos_activation_key_base_name + major_version }}"
+    hostgroup_name: "{{ satellite_centos_hostgroup_base_name + major_version + ' Hosts' }}"
+
+- name: "{{ 'Delete ' + hostgroup_name + ' Hosts Host Group' }}"
+  redhat.satellite.hostgroup:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+    name: "{{ hostgroup_name }}"
+    state: absent
+
+- name: "{{ 'Delete ' + activation_key + ' Activation Key' }}" 
+  redhat.satellite.activation_key:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ activation_key }}"
+    lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+    state: absent
+
+- name: "{{ 'Delete '+ repo_name + ' Repo' }}"
+  redhat.satellite.repository:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ repo_name }}"
+    content_type: "yum"
+    product: "{{ product_name }}"
+    url: "{{ url }}"
+    state: absent
+
+- name: "{{ 'Delete CentOS ' + major_version + ' Product' }}"
+  redhat.satellite.product:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ product_name }}"
+    state: absent

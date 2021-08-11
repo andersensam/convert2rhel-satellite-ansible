@@ -1,0 +1,99 @@
+---
+- name: "Check Organization Exists"
+  redhat.satellite.organization:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ satellite_organization }}"
+  register: organization
+  notify: "Ensure Rollback of Organization"
+
+- name: "Check Location Exists"
+  redhat.satellite.location:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ satellite_location }}"
+  register: location
+  notify: "Ensure Rollback of Location"
+
+- name: "Flush handlers"
+  meta: flush_handlers
+
+- name: "PLEASE COMPLETE INITIAL SETUP"
+  ansible.builtin.debug:
+    msg: | 
+      "Either your Location or Organization has not been defined yet.  Please make sure that you have done the initial setup"
+  failed_when: organization.changed or location.changed
+  when: 
+    - organization.changed or location.changed
+    - not satellite_create_organization or not satellite_create_location
+
+- name: "Configure CentOS Satellite Assets"
+  include_tasks: centos_config.yml
+  loop: "{{ convert2rhel_versions }}"
+  loop_control:
+    loop_var: major_version
+  when: not rollback
+
+- name: Upload Satellite Manifest
+  redhat.satellite.subscription_manifest:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    manifest_path: "{{ satellite_manifest_path | default(role_path + '/files/satellite_manifest.zip') }}" 
+  when: not rollback
+
+- name: "Configure RHEL Satellite Assets"
+  include_tasks: rhel_config.yml
+  loop: "{{ convert2rhel_versions }}"
+  loop_control:
+    loop_var: major_version
+  when: not rollback
+
+- name: "Remove CentOS Satellite Assets"
+  include_tasks: rollback_centos_config.yml
+  loop: "{{ convert2rhel_versions }}"
+  loop_control:
+    loop_var: major_version
+  when: rollback
+
+
+- name: "Remove RHEL Satellite Assets"
+  include_tasks: rollback_rhel_config.yml
+  loop: "{{ convert2rhel_versions }}"
+  loop_control:
+    loop_var: major_version
+  when: rollback  
+
+- name: Remove Satellite Manifest
+  redhat.satellite.subscription_manifest:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    state: absent
+  when: rollback
+
+- name: "Remove Location"
+  debug:
+    msg: "Notify Handler to remove location"
+  no_log: true
+  changed_when: true
+  notify: "Ensure Rollback of Location"
+  when: rollback
+
+- name: "Remove Organization"
+  debug:
+    msg: "Notify Handler to remove organization"
+  no_log: true
+  changed_when: true
+  notify: "Ensure Rollback of Organization"
+  when: rollback
+
+    

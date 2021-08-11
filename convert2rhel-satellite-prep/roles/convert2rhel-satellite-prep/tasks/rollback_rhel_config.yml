@@ -1,0 +1,50 @@
+---
+- name: "{{ 'Set Facts for RHEL ' + major_version }}"
+  set_fact:
+    activation_key: "{{ satellite_rhel_activation_key_base_name + major_version }}"
+    product_name: "{{ satellite_centos_product_base_name + major_version }}"
+
+- name: Delete Activation Key
+  redhat.satellite.activation_key:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ activation_key }}"
+    lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+    state: absent
+
+- name: "{{ 'Disable RHEL ' + major_version + ' BaseOS Repo' }}"
+  redhat.satellite.repository_set:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}" 
+    label: "rhel-8-for-x86_64-baseos-rpms"
+    repositories:
+    - releasever: "8"
+    state: disabled
+  when: major_version == "8"
+
+- name: "{{ 'Disable RHEL ' + major_version + ' Server Repo' }}"
+  redhat.satellite.repository_set:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}" 
+    label: "{{ 'rhel-' + major_version + '-server-rpms' }}"
+    repositories:
+     - releasever: "{{ major_version + 'Server' }}"
+       basearch: "x86_64"
+    state: disabled
+  when: major_version == "6" or major_version == "7"
+
+
+
+
+
+
+

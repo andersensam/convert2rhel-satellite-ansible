@@ -1,0 +1,11 @@
+---
+# satellite_username: "admin"
+# satellite_password: "changeme"
+# satellite_server_url: "https://satellite.lab"
+# satellite_organization: "Red Hat"
+# satellite_lifecycle_environment: "Library"
+# satellite_location: "Raleigh"
+# convert2rhel_versions:
+#     - "6"
+#     - "7"
+#     - "8"
