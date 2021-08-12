@@ -11,8 +11,8 @@
   redhat.satellite.product:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
-    server_url: "{{ satellite_url }}"
-    organization: "{{ satellite_org }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
     validate_certs: "{{ satellite_validate_certs }}"
     name: "{{ product_name }}"
 
@@ -20,8 +20,8 @@
   redhat.satellite.repository:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
-    server_url: "{{ satellite_url }}"
-    organization: "{{ satellite_org }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
     validate_certs: "{{ satellite_validate_certs }}"
     name: "{{ repo_name }}"
     content_type: "yum"
@@ -32,8 +32,8 @@
   redhat.satellite.repository_sync:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
-    server_url: "{{ satellite_url }}"
-    organization: "{{ satellite_org }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
     validate_certs: "{{ satellite_validate_certs }}"
     repository: "{{ repo_name }}"
     product: "{{ product_name }}"
@@ -42,8 +42,8 @@
   redhat.satellite.activation_key:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
-    server_url: "{{ satellite_url }}"
-    organization: "{{ satellite_org }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
     validate_certs: "{{ satellite_validate_certs }}"
     name: "{{ satellite_centos_activation_key_base_name + major_version }}"
     lifecycle_environment: "{{ satellite_lifecycle_environment }}"
@@ -52,8 +52,8 @@
   redhat.satellite.hostgroup:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
-    server_url: "{{ satellite_url }}"
-    organization: "{{ satellite_org }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
     validate_certs: "{{ satellite_validate_certs }}"
     lifecycle_environment: "{{ satellite_lifecycle_environment }}"
     activation_keys: 

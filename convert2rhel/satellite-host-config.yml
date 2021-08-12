@@ -10,6 +10,6 @@
 
     - name: Download the Satellite CA RPM
       get_url:
-        url: "{{ satellite_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
+        url: "{{ satellite_server_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
         dest: /usr/share/convert2rhel/subscription-manager/katello-ca-consumer-latest.noarch.rpm
         validate_certs: False

@@ -3,9 +3,9 @@
   redhat.satellite.organization:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
-    server_url: "{{ satellite_url }}"
+    server_url: "{{ satellite_server_url }}"
     validate_certs: "{{ satellite_validate_certs }}"
-    name: "{{ satellite_org }}"
+    name: "{{ satellite_organization }}"
   register: organization
   notify: "Ensure Rollback of Organization"
 
@@ -13,7 +13,7 @@
   redhat.satellite.location:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
-    server_url: "{{ satellite_url }}"
+    server_url: "{{ satellite_server_url }}"
     validate_certs: "{{ satellite_validate_certs }}"
     name: "{{ satellite_location }}"
   register: location
@@ -42,8 +42,8 @@
   redhat.satellite.subscription_manifest:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
-    server_url: "{{ satellite_url }}"
-    organization: "{{ satellite_org }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
     validate_certs: "{{ satellite_validate_certs }}"
     manifest_path: "{{ satellite_manifest_path | default(role_path + '/files/satellite_manifest.zip') }}" 
   when: not rollback
@@ -74,8 +74,8 @@
   redhat.satellite.subscription_manifest:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
-    server_url: "{{ satellite_url }}"
-    organization: "{{ satellite_org }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
     validate_certs: "{{ satellite_validate_certs }}"
     state: absent
   when: rollback

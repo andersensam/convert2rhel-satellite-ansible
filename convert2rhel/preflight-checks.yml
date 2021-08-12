@@ -11,17 +11,17 @@
   run_once: True
   when: register_to_insights is not defined
 
-- name: Variable satellite_org is defined
+- name: Variable satellite_organization is defined
   fail:
-    msg: "The variable 'satellite_org' is not defined!"
+    msg: "The variable 'satellite_organization' is not defined!"
   run_once: True
-  when: satellite_org is not defined
+  when: satellite_organization is not defined
 
-- name: Variable satellite_url is defined
+- name: Variable satellite_server_url is defined
   fail:
-    msg: "The variable 'satellite_url' is not defined!"
+    msg: "The variable 'satellite_server_url' is not defined!"
   run_once: True
-  when: satellite_url is not defined
+  when: satellite_server_url is not defined
 
 - name: Variable svcansible_home is defined
   fail:

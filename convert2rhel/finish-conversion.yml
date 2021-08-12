@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - name: Execute the Convert2RHEL script
-      shell: convert2rhel -k "{{ activation_key }}" -o "{{ satellite_org }}" --debug -y
+      shell: convert2rhel -k "{{ activation_key }}" -o "{{ satellite_organization }}" --debug -y
       when: ansible_distribution == 'CentOS' or ansible_distribution == 'OracleLinux'
       notify: Reboot the remote host
 
