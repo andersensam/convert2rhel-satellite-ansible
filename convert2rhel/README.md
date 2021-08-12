@@ -42,8 +42,8 @@ svcansible_username     svcansible                  Username of service account 
 svcansible_home         /var/lib/                   Prefix for service account home directory. Using /var/lib creates the directory /var/lib/$(svcansible_username)
 svcansible_sudoer       'true'                      Add the service account to /etc/sudoers.d directory, allowing passwordless sudo
 svcansible_public_key                               The public SSH key to install to the remote host. Follows the format of ~/.ssh/authorized_keys
-satellite_url                                       Satellite server URL, make sure to include "https://"
-satellite_org                                       Satellite organization the converted host should be placed into
+satellite_server_url                                Satellite server URL, make sure to include "https://"
+satellite_organization                              Satellite organization the converted host should be placed into
 activation_key                                      Activation Key from Satellite
 register_to_insights    'true'                      Register the host to Red Hat Insights
 ```
@@ -54,8 +54,8 @@ svcansible_username: svcansible
 svcansible_home: /var/lib/
 svcansible_sudoer: 'true'
 svcansible_public_key: ssh-rsa <ssh-key-here> sam@samander-mac
-satellite_url: 'https://satellite-services.lab.redhat.com'
-satellite_org: AnsibleLab
+satellite_server_url: 'https://satellite-services.lab.redhat.com'
+satellite_organization: AnsibleLab
 activation_key: Ansible_RHEL7
 register_to_insights: 'true'
 ```
