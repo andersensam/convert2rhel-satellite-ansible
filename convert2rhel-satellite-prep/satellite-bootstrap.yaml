@@ -1,0 +1,6 @@
+---
+- name: Bootstrap Satellite for use with Convert2RHEL
+  hosts: all
+  gather_facts: False
+  roles:
+    - role: convert2rhel-satellite-prep

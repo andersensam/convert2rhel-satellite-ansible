@@ -8,8 +8,8 @@
   redhat.satellite.repository_set:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
-    server_url: "{{ satellite_server_url }}"
-    organization: "{{ satellite_organization }}"
+    server_url: "{{ satellite_url }}"
+    organization: "{{ satellite_org }}"
     validate_certs: "{{ satellite_validate_certs }}" 
     label: "rhel-8-for-x86_64-baseos-rpms"
     repositories:
@@ -21,8 +21,8 @@
   redhat.satellite.repository_set:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
-    server_url: "{{ satellite_server_url }}"
-    organization: "{{ satellite_organization }}"
+    server_url: "{{ satellite_url }}"
+    organization: "{{ satellite_org }}"
     validate_certs: "{{ satellite_validate_certs }}" 
     label: "{{ 'rhel-' + major_version + '-server-rpms' }}"
     repositories:
@@ -41,8 +41,8 @@
     redhat.satellite.activation_key:
       username: "{{ satellite_username }}"
       password: "{{ satellite_password }}"
-      server_url: "{{ satellite_server_url }}"
-      organization: "{{ satellite_organization }}"
+      server_url: "{{ satellite_url }}"
+      organization: "{{ satellite_org }}"
       validate_certs: "{{ satellite_validate_certs }}"
       name: "{{ activation_key }}"
       lifecycle_environment: "{{ satellite_lifecycle_environment }}"
@@ -54,8 +54,8 @@
     redhat.satellite.activation_key:
       username: "{{ satellite_username }}"
       password: "{{ satellite_password }}"
-      server_url: "{{ satellite_server_url }}"
-      organization: "{{ satellite_organization }}"
+      server_url: "{{ satellite_url }}"
+      organization: "{{ satellite_org }}"
       validate_certs: "{{ satellite_validate_certs }}"
       name: "{{ activation_key }}"
       lifecycle_environment: "{{ satellite_lifecycle_environment }}"
