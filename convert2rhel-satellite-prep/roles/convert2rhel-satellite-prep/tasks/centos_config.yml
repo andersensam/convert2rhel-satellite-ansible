@@ -7,6 +7,16 @@
     activation_key: "{{ satellite_centos_activation_key_base_name + major_version }}"
     hostgroup_name: "{{ satellite_centos_hostgroup_base_name + major_version + ' Hosts' }}"
 
+- name: "{{ 'Set Release Version Fact for ' + major_version }}"
+  set_fact:
+    release_version: "{{ major_version + 'Server' }}"
+  when: major_version == '6' or major_version == '7'
+
+- name: "{{ 'Set Release Version Fact for ' + major_version }}"
+  set_fact:
+    release_version: "{{ major_version }}"
+  when: major_version == '8'
+
 - name: "{{ 'Create CentOS ' + major_version + ' Product' }}"
   redhat.satellite.product:
     username: "{{ satellite_username }}"
@@ -47,6 +57,9 @@
     validate_certs: "{{ satellite_validate_certs }}"
     name: "{{ satellite_centos_activation_key_base_name + major_version }}"
     lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+    subscriptions:
+      - name: "{{ satellite_centos_product_base_name + major_version }}"
+    release_version: "{{ release_version }}"
 
 - name: Create CentOS Host Group for conversion
   redhat.satellite.hostgroup:

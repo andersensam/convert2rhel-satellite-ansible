@@ -48,11 +48,36 @@
     manifest_path: "{{ satellite_manifest_path | default(role_path + '/files/satellite_manifest.zip') }}" 
   when: not rollback
 
+# we need to refresh the manifest as *sometimes* it doesn't completely load
+- name: Refresh Satellite Manifest
+  redhat.satellite.subscription_manifest:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    state: refreshed
+  when: not rollback
+
 - name: "Configure RHEL Satellite Assets"
   include_tasks: rhel_config.yml
   loop: "{{ convert2rhel_versions }}"
   loop_control:
     loop_var: major_version
+  when: not rollback
+
+- name: "Update CentOS Activation Key Repo Sets"
+  include_tasks: centos_activation_key_update.yml
+  loop: "{{ convert2rhel_versions }}"
+  loop_control:
+      loop_var: major_version
+  when: not rollback
+
+- name: "Update RHEL Activation Key Repo Sets"
+  include_tasks: rhel_activation_key_update.yml
+  loop: "{{ convert2rhel_versions }}"
+  loop_control:
+      loop_var: major_version
   when: not rollback
 
 - name: "Remove CentOS Satellite Assets"
@@ -61,7 +86,6 @@
   loop_control:
     loop_var: major_version
   when: rollback
-
 
 - name: "Remove RHEL Satellite Assets"
   include_tasks: rollback_rhel_config.yml
@@ -95,5 +119,3 @@
   changed_when: true
   notify: "Ensure Rollback of Organization"
   when: rollback
-
-    

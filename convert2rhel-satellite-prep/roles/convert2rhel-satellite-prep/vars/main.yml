@@ -5,6 +5,7 @@
 # satellite_organization: "Red Hat"
 # satellite_lifecycle_environment: "Library"
 # satellite_location: "Raleigh"
+# satellite_subscription_name: "Red Hat Enterprise Linux"
 # convert2rhel_versions:
 #     - "6"
 #     - "7"
