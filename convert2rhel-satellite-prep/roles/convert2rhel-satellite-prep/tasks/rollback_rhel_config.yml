@@ -41,10 +41,3 @@
        basearch: "x86_64"
     state: disabled
   when: major_version == "6" or major_version == "7"
-
-
-
-
-
-
-
