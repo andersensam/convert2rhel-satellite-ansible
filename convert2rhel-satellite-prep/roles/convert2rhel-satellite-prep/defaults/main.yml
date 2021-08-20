@@ -2,6 +2,7 @@
 satellite_validate_certs: false
 satellite_create_organization: false
 satellite_create_location: false
+satellite_lifecycle_environment: "Library"
 satellite_centos_product_base_name: "CentOS "
 satellite_centos_repo_base_name: "Convert2RHEL Repo "
 satellite_centos_activation_key_base_name: "Convert2RHEL CentOS "
