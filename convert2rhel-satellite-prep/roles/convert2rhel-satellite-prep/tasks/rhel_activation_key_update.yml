@@ -1,0 +1,77 @@
+---
+# There is no current ability to get all repos available with an activation key, so we have to play whack-a-mole disabling them appropriately
+# This method is used as SCA will make all repos available to all activation keys (RHEL is better about this than CentOS, but keeping it the same for consistency)
+- name: "{{ 'Set Facts for RHEL ' + major_version }}"
+  set_fact:
+    activation_key: "{{ satellite_rhel_activation_key_base_name + major_version }}"
+    centos6_label: "{{ satellite_organization + '_' + satellite_centos_product_base_name.replace(' ', '_') + '6_' + satellite_centos_repo_base_name.replace(' ', '_') + '6' }}"
+    centos7_label: "{{ satellite_organization + '_' + satellite_centos_product_base_name.replace(' ', '_') + '7_' + satellite_centos_repo_base_name.replace(' ', '_') + '7' }}"
+    centos8_label: "{{ satellite_organization + '_' + satellite_centos_product_base_name.replace(' ', '_') + '8_' + satellite_centos_repo_base_name.replace(' ', '_') + '8' }}"
+
+- name: "Disable all CentOS Repos for RHEL Activation Keys"
+  set_fact:
+    disabled_repo_sets: "{{ [ {'label': centos6_label, 'override': 'disabled'}, {'label': centos7_label, 'override': 'disabled'}, {'label': centos8_label, 'override': 'disabled'} ] }}"
+
+- name: "Disable RHEL 6 Repos for RHEL 8 Actication Key"
+  set_fact:
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-6-server-rpms', 'override': 'disabled'} ] }}"
+  loop: "{{ convert2rhel_versions }}"
+  when: 
+    - item == '6'
+    - major_version == '8'
+
+- name: "Disable RHEL 7 Repos for RHEL 8 Actication Key"
+  set_fact:
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-7-server-rpms', 'override': 'disabled'} ] }}"
+  loop: "{{ convert2rhel_versions }}"
+  when: 
+    - item == '7'
+    - major_version == '8'
+
+- name: "Disable RHEL 6 Repos for RHEL 7 Actication Key"
+  set_fact:
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-6-server-rpms', 'override': 'disabled'} ] }}"
+  loop: "{{ convert2rhel_versions }}"
+  when: 
+    - item == '6'
+    - major_version == '7'
+
+- name: "Disable RHEL 8 Repos for RHEL 7 Actication Key"
+  set_fact:
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-8-for-x86_64-baseos-rpms' , 'override': 'disabled'} ] }}"
+  loop: "{{ convert2rhel_versions }}"
+  when: 
+    - item == '8'
+    - major_version == '7'
+
+- name: "Disable RHEL 7 Repos for RHEL 6 Actication Key"
+  set_fact:
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-7-server-rpms', 'override': 'disabled'} ] }}"
+  loop: "{{ convert2rhel_versions }}"
+  when: 
+    - item == '7'
+    - major_version == '6'
+
+- name: "Disable RHEL 8 Repos for RHEL 6 Actication Key"
+  set_fact:
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-8-for-x86_64-baseos-rpms', 'override': 'disabled'} ] }}"
+  loop: "{{ convert2rhel_versions }}"
+  when: 
+    - item == '8'
+    - major_version == '6'
+
+- name: Update Activation Key
+  redhat.satellite.activation_key:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ activation_key }}"
+    lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+    content_overrides: "{{ disabled_repo_sets }}"
+
+# clear the fact so that on the next loop we don't have conflicting data
+- name: "Clear Disabled Repos Set Fact"
+  set_fact:
+    disabled_repo_sets: []
