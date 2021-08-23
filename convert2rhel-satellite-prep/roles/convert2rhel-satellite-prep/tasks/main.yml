@@ -1,5 +1,5 @@
 ---
-- include: preflight-checks.yml
+#- include: preflight-checks.yml
 - name: "Check Organization Exists"
   redhat.satellite.organization:
     username: "{{ satellite_username }}"
