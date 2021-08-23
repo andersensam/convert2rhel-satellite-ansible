@@ -46,7 +46,7 @@
     path: "exported_manifest.zip"
   when: not rollback and fetch_rhsm_manifest
 
-- name: Upload Satellite Manifest (Local)
+- name: Upload Satellite Manifest (RHSM)
   redhat.satellite.subscription_manifest:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
