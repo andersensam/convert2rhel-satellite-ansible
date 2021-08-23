@@ -15,5 +15,5 @@
                    "rhsm_password" : "{% raw %}{{ rhsm_password }}{% endraw %}" }
                }
     state: present
-    run_once: true
     validate_certs: false
+  run_once: true
