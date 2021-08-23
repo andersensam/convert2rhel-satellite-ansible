@@ -1,15 +1,15 @@
 ---
-- name: Variable satellite_username is defined
+- name: Variable activation_key is defined
   fail:
-    msg: "The variable 'satellite_username' is not defined!"
+    msg: "The variable 'activation_key' is not defined!"
   run_once: True
-  when: satellite_username is not defined
+  when: activation_key is not defined
 
-- name: Variable satellite_password is defined
+- name: Variable register_to_insights is defined
   fail:
-    msg: "The variable 'satellite_password' is not defined!"
+    msg: "The variable 'register_to_insights' is not defined!"
   run_once: True
-  when: satellite_password is not defined
+  when: register_to_insights is not defined
 
 - name: Variable satellite_organization is defined
   fail:
@@ -23,26 +23,26 @@
   run_once: True
   when: satellite_server_url is not defined
 
-- name: Variable satellite_lifecycle_environment is defined
+- name: Variable svcansible_home is defined
   fail:
-    msg: "The variable 'satellite_lifecycle_environment' is not defined!"
+    msg: "The variable 'svcansible_home' is not defined!"
   run_once: True
-  when: satellite_lifecycle_environment is not defined
+  when: svcansible_home is not defined
 
-- name: Variable satellite_location is defined
+- name: Variable svcansible_public_key is defined
   fail:
-    msg: "The variable 'satellite_location' is not defined!"
+    msg: "The variable 'svcansible_public_key' is not defined!"
   run_once: True
-  when: satellite_location is not defined
+  when: svcansible_public_key is not defined
 
-- name: Variable satellite_subscription_name is defined
+- name: Variable svcansible_sudoer is defined
   fail:
-    msg: "The variable 'satellite_subscription_name' is not defined!"
+    msg: "The variable 'svcansible_sudoer' is not defined!"
   run_once: True
-  when: satellite_subscription_name is not defined
+  when: svcansible_sudoer is not defined
 
-- name: Variable convert2rhel_versions is defined
+- name: Variable svcansible_username is defined
   fail:
-    msg: "The variable 'convert2rhel_versions' is not defined!"
+    msg: "The variable 'svcansible_username' is not defined!"
   run_once: True
-  when: convert2rhel_versions is not defined
+  when: svcansible_username is not defined
