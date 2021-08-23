@@ -19,7 +19,6 @@
       required:
         - rhsm_username
         - rhsm_password
-    injectors:
-      extra_vars:
-        rhsm_password: "\'\{\{ rhsm_password \}\}\'"
-        rhsm_username: "\'\{\{ rhsm_username \}\}\'"
+    injectors: { "extra_vars" :
+                { "rhsm_username" : "{% raw %}{{ rhsm_username }}{% endraw %}"},
+                { "rhsm_password" : "{% raw %}{{ rhsm_password }}{% endraw %}"}}
