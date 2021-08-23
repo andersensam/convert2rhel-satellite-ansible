@@ -1,5 +1,6 @@
 ---
 - include: preflight-checks.yml
+
 - name: "Check Organization Exists"
   redhat.satellite.organization:
     username: "{{ satellite_username }}"
@@ -39,7 +40,25 @@
     loop_var: major_version
   when: not rollback
 
-- name: Upload Satellite Manifest
+- name: Download Manifest from RHSM
+  redhat.satellite.redhat_manifest:
+    username: "{{ rhsm_username }}"
+    password: "{{ rhsm_password }}"
+    uuid: "{{ rhsm_manifest_uuid }}"
+    path: "exported_manifest.zip"
+  when: not rollback and fetch_rhsm_manifest
+
+- name: Upload Satellite Manifest (RHSM)
+  redhat.satellite.subscription_manifest:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    manifest_path: "exported_manifest.zip"
+  when: not rollback and fetch_rhsm_manifest
+
+- name: Upload Satellite Manifest (Local)
   redhat.satellite.subscription_manifest:
     username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
@@ -47,7 +66,7 @@
     organization: "{{ satellite_organization }}"
     validate_certs: "{{ satellite_validate_certs }}"
     manifest_path: "{{ satellite_manifest_path | default(role_path + '/files/satellite_manifest.zip') }}"
-  when: not rollback
+  when: not rollback and not fetch_rhsm_manifest
 
 # we need to refresh the manifest as *sometimes* it doesn't completely load
 - name: Refresh Satellite Manifest

@@ -12,7 +12,7 @@
   set_fact:
     disabled_repo_sets: "{{ [ {'label': 'rhel-6-server-rpms', 'override': 'disabled'}, {'label': 'rhel-7-server-rpms', 'override': 'disabled'}, {'label': 'rhel-8-for-x86_64-baseos-rpms', 'override': 'disabled'} ] }}"
 
-- name: "Disable CentOS 6 Repos for CentOS 8 Actication Key"
+- name: "Disable CentOS 6 Repos for CentOS 8 Activation Key"
   set_fact:
     disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': centos6_label, 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
@@ -20,7 +20,7 @@
     - item == '6'
     - major_version == '8'
 
-- name: "Disable CentOS 7 Repos for CentOS 8 Actication Key"
+- name: "Disable CentOS 7 Repos for CentOS 8 Activation Key"
   set_fact:
     disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': centos7_label, 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
@@ -28,7 +28,7 @@
     - item == '7'
     - major_version == '8'
 
-- name: "Disable CentOS 6 Repos for CentOS 7 Actication Key"
+- name: "Disable CentOS 6 Repos for CentOS 7 Activation Key"
   set_fact:
     disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': centos6_label, 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
@@ -36,7 +36,7 @@
     - item == '6'
     - major_version == '7'
 
-- name: "Disable CentOS 8 Repos for CentOS 7 Actication Key"
+- name: "Disable CentOS 8 Repos for CentOS 7 Activation Key"
   set_fact:
     disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': centos8_label , 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
@@ -44,7 +44,7 @@
     - item == '8'
     - major_version == '7'
 
-- name: "Disable CentOS 7 Repos for CentOS 6 Actication Key"
+- name: "Disable CentOS 7 Repos for CentOS 6 Activation Key"
   set_fact:
     disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': centos7_label, 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
@@ -52,7 +52,7 @@
     - item == '7'
     - major_version == '6'
 
-- name: "Disable CentOS 8 Repos for CentOS 6 Actication Key"
+- name: "Disable CentOS 8 Repos for CentOS 6 Activation Key"
   set_fact:
     disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': centos8_label, 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
