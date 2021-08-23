@@ -1,4 +1,5 @@
 ---
+- include: preflight-checks.yml
 - name: "Check Organization Exists"
   redhat.satellite.organization:
     username: "{{ satellite_username }}"
@@ -24,10 +25,10 @@
 
 - name: "PLEASE COMPLETE INITIAL SETUP"
   ansible.builtin.debug:
-    msg: | 
+    msg: |
       "Either your Location or Organization has not been defined yet.  Please make sure that you have done the initial setup"
   failed_when: organization.changed or location.changed
-  when: 
+  when:
     - organization.changed or location.changed
     - not satellite_create_organization or not satellite_create_location
 
@@ -45,7 +46,7 @@
     server_url: "{{ satellite_server_url }}"
     organization: "{{ satellite_organization }}"
     validate_certs: "{{ satellite_validate_certs }}"
-    manifest_path: "{{ satellite_manifest_path | default(role_path + '/files/satellite_manifest.zip') }}" 
+    manifest_path: "{{ satellite_manifest_path | default(role_path + '/files/satellite_manifest.zip') }}"
   when: not rollback
 
 # we need to refresh the manifest as *sometimes* it doesn't completely load
@@ -92,7 +93,7 @@
   loop: "{{ convert2rhel_versions }}"
   loop_control:
     loop_var: major_version
-  when: rollback  
+  when: rollback
 
 - name: Remove Satellite Manifest
   redhat.satellite.subscription_manifest:
