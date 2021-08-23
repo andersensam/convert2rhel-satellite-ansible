@@ -6,19 +6,14 @@
     name: "{{ rhsm_cred_name }}"
     description: "Credential type for logging into RHSM (Red Hat Subscription Manager)"
     kind: cloud
-    inputs:
-      fields:
-        - id: rhsm_username
-          type: string
-          label: Username
-
-        - id: rhsm_password
-          type: string
-          label: Password
-          secret: True
-      required:
-        - rhsm_username
-        - rhsm_password
-    injectors: { "extra_vars" :
-                { "rhsm_username" : "{% raw %}{{ rhsm_username }}{% endraw %}"},
-                { "rhsm_password" : "{% raw %}{{ rhsm_password }}{% endraw %}"}}
+    inputs: {"fields": [
+               {"id": "rhsm_username","type": "string","label": "Username"},
+               {"id": "rhsm_password","type": "string","label": "Password","secret": "True"}]
+             }
+    injectors: { "extra_vars":
+                 { "rhsm_username" : "{% raw %}{{ rhsm_username }}{% endraw %}",
+                   "rhsm_password" : "{% raw %}{{ rhsm_password }}{% endraw %}" }
+               }
+    state: present
+    run_once: true
+    validate_certs: false
