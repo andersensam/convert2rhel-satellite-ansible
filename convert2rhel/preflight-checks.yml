@@ -52,3 +52,53 @@
     msg: "The variable 'satellite_validate_certs' is not defined!"
   run_once: True
   when: satellite_validate_certs is not defined
+
+- name: Variable satellite_create_organization is defined
+  fail:
+    msg: "The variable 'satellite_create_organization' is not defined!"
+  run_once: True
+  when: satellite_create_organization is not defined
+
+- name: Variable satellite_create_location is defined
+  fail:
+    msg: "The variable 'satellite_create_location' is not defined!"
+  run_once: True
+  when: satellite_create_location is not defined
+
+
+
+- name: Variable satellite_lifecycle_environment is defined
+  fail:
+    msg: "The variable 'satellite_lifecycle_environment' is not defined!"
+  run_once: True
+  when: satellite_lifecycle_environment is not defined
+
+- name: Variable satellite_centos_product_base_name is defined
+  fail:
+    msg: "The variable 'satellite_centos_product_base_name' is not defined!"
+  run_once: True
+  when: satellite_centos_product_base_name is not defined
+
+- name: Variable satellite_centos_repo_base_name is defined
+  fail:
+    msg: "The variable 'satellite_centos_repo_base_name' is not defined!"
+  run_once: True
+  when: satellite_centos_repo_base_name is not defined
+
+- name: Variable satellite_centos_activation_key_base_name is defined
+  fail:
+    msg: "The variable 'satellite_centos_activation_key_base_name' is not defined!"
+  run_once: True
+  when: satellite_centos_activation_key_base_name is not defined
+
+- name: Variable satellite_centos_hostgroup_base_name is defined
+  fail:
+    msg: "The variable 'satellite_centos_hostgroup_base_name' is not defined!"
+  run_once: True
+  when: satellite_centos_hostgroup_base_name is not defined
+
+- name: Variable satellite_rhel_activation_key_base_name is defined
+  fail:
+    msg: "The variable 'satellite_rhel_activation_key_base_name' is not defined!"
+  run_once: True
+  when: satellite_rhel_activation_key_base_name is not defined
