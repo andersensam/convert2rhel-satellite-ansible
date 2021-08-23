@@ -46,3 +46,9 @@
     msg: "The variable 'convert2rhel_versions' is not defined!"
   run_once: True
   when: convert2rhel_versions is not defined
+
+- name: Variable satellite_validate_certs is defined
+  fail:
+    msg: "The variable 'satellite_validate_certs' is not defined!"
+  run_once: True
+  when: satellite_validate_certs is not defined
