@@ -12,7 +12,7 @@
   set_fact:
     disabled_repo_sets: "{{ [ {'label': centos6_label, 'override': 'disabled'}, {'label': centos7_label, 'override': 'disabled'}, {'label': centos8_label, 'override': 'disabled'} ] }}"
 
-- name: "Disable RHEL 6 Repos for RHEL 8 Actication Key"
+- name: "Disable RHEL 6 Repos for RHEL 8 Activation Key"
   set_fact:
     disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-6-server-rpms', 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
@@ -20,7 +20,7 @@
     - item == '6'
     - major_version == '8'
 
-- name: "Disable RHEL 7 Repos for RHEL 8 Actication Key"
+- name: "Disable RHEL 7 Repos for RHEL 8 Activation Key"
   set_fact:
     disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-7-server-rpms', 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
@@ -28,7 +28,7 @@
     - item == '7'
     - major_version == '8'
 
-- name: "Disable RHEL 6 Repos for RHEL 7 Actication Key"
+- name: "Disable RHEL 6 Repos for RHEL 7 Activation Key"
   set_fact:
     disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-6-server-rpms', 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
@@ -36,7 +36,7 @@
     - item == '6'
     - major_version == '7'
 
-- name: "Disable RHEL 8 Repos for RHEL 7 Actication Key"
+- name: "Disable RHEL 8 Repos for RHEL 7 Activation Key"
   set_fact:
     disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-8-for-x86_64-baseos-rpms' , 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
@@ -44,7 +44,7 @@
     - item == '8'
     - major_version == '7'
 
-- name: "Disable RHEL 7 Repos for RHEL 6 Actication Key"
+- name: "Disable RHEL 7 Repos for RHEL 6 Activation Key"
   set_fact:
     disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-7-server-rpms', 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
@@ -52,7 +52,7 @@
     - item == '7'
     - major_version == '6'
 
-- name: "Disable RHEL 8 Repos for RHEL 6 Actication Key"
+- name: "Disable RHEL 8 Repos for RHEL 6 Activation Key"
   set_fact:
     disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-8-for-x86_64-baseos-rpms', 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
