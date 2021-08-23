@@ -1,0 +1,25 @@
+---
+- include: preflight-checks.yml
+
+- name: Create RHSM Credential Type
+  tower_credential_type:
+    name: "{{ rhsm_cred_name }}"
+    description: "Credential type for logging into RHSM (Red Hat Subscription Manager)"
+    kind: cloud
+    inputs:
+      fields:
+        - id: rhsm_username
+          type: string
+          label: Username
+
+        - id: rhsm_password
+          type: string
+          label: Password
+          secret: True
+      required:
+        - rhsm_username
+        - rhsm_password
+    injectors:
+      extra_vars:
+        rhsm_password: "\'\{\{ rhsm_password \}\}\'"
+        rhsm_username: "\'\{\{ rhsm_username \}\}\'"

@@ -3,4 +3,5 @@
   hosts: all
   gather_facts: False
   roles:
+    - role: create-rhsm-credential-type
     - role: convert2rhel-satellite-prep
