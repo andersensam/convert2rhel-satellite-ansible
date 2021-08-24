@@ -1,6 +1,8 @@
 ---
 - include: preflight-checks.yml
 
+- include: preflight_checks.yml
+
 - name: Create RHSM Credential Type
   tower_credential_type:
     name: "{{ rhsm_cred_name }}"
