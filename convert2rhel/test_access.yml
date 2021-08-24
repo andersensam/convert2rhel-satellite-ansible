@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: False
   tasks:
-    - include: preflight-checks.yml
+    - include: preflight_checks.yml
 
     - name: Get UID after using 'become'
       command: "whoami"
