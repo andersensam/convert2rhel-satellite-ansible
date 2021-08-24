@@ -5,9 +5,10 @@
   tasks:
     - name: Authenticate to Ansible Tower API
       uri:
-        url: "{{ lookup('env', 'TOWER_HOST') }}/api/v1/authtoken/"
+        url: "https://{{ lookup('env', 'TOWER_HOST') }}/api/v1/authtoken/"
         method: POST
         body: {"username": "{{ lookup('env', 'TOWER_USERNAME') }}", "password": "{{ lookup('env', 'TOWER_PASSWORD') }}"}
+        validate_certs: False
       register: tower_token
     
     - name: Print out token
