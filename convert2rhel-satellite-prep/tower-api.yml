@@ -7,7 +7,8 @@
       uri:
         url: "https://{{ lookup('env', 'TOWER_HOST') }}/api/v1/authtoken/"
         method: POST
-        body: {"username": "{{ lookup('env', 'TOWER_USERNAME') }}", "password": "{{ lookup('env', 'TOWER_PASSWORD') }}"}
+        body: "{\"username\": \"{{ lookup('env', 'TOWER_USERNAME') }}\", \"password\": \"{{ lookup('env', 'TOWER_PASSWORD') }}\"}"
+        body_format: json
         validate_certs: False
       register: tower_token
     
