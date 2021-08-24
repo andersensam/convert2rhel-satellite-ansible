@@ -1,6 +1,4 @@
 ---
-- include: preflight-checks.yml
-
 - include: preflight_checks.yml
 
 - name: Create RHSM Credential Type
