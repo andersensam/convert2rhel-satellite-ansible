@@ -1,0 +1,4 @@
+- name: 'Preflight Variable Check :: rhsm_cred_name'
+  fail: msg='Please include rhsm_cred_name to the variable "rhsm_cred_name"'
+  run_once: True
+  when: 'rhsm_cred_name is not defined'
