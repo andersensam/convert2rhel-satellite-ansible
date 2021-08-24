@@ -1,0 +1,15 @@
+---
+- name: Connect to Ansible Tower API
+  hosts: all
+  gather_facts: False
+  tasks:
+    - name: Authenticate to Ansible Tower API
+      uri:
+        url: "{{ TOWER_HOST }}/api/v1/authtoken/"
+        method: POST
+        body: {"username": "{{ TOWER_USERNAME }}", "password": "{{ TOWER_PASSWORD }}"}
+      register: tower_token
+    
+    - name: Print out token
+      debug:
+        var: tower_token
