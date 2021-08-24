@@ -15,7 +15,7 @@
         msg: "Remote host is still running {{ ansible_distribution }}"
       when: ansible_distribution == 'CentOS' or ansible_distribution == 'OracleLinux'
 
-    - include: register-insights.yml
+    - include: register_insights.yml
       when: register_to_insights == 'true'
 
   handlers:
