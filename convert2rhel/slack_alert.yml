@@ -7,14 +7,17 @@
       fail: msg='Please include the slack_token to the variable "slack_token"'
       run_once: true
       when: 'slack_token is not defined'
+
     - name: 'Preflight Varible check :: message'
       fail: msg='Please include the message to the variable "message"'
       run_once: true
       when: 'message is not defined'
+
     - name: 'Preflight Varible check :: channel'
       fail: msg='Please include the channel to the variable "channel"'
       run_once: true
       when: 'channel is not defined'
+      
     - name: 'Preflight Varible check :: slackuser'
       fail: msg='Please include the slackuser to the variable "slackuser"'
       run_once: true
