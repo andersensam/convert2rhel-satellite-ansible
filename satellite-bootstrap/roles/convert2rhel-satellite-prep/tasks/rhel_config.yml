@@ -2,6 +2,7 @@
 - name: "{{ 'Set Facts for RHEL ' + major_version }}"
   set_fact:
     activation_key: "{{ satellite_rhel_activation_key_base_name + major_version }}"
+    satellite_username: "{{ lookup('ini', 'user section=foreman file=FOREMAN_INI_PATH') }}"
 
 - name: "{{ 'Enable RHEL ' + major_version + ' BaseOS Repo' }}"
   redhat.satellite.repository_set:
@@ -18,7 +19,7 @@
 
 - name: "{{ 'Enable RHEL ' + major_version + ' Server Repo' }}"
   redhat.satellite.repository_set:
-    username: '{{ lookup("env", "SATELLITE6_USERNAME") }}'
+    username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
     server_url: "{{ satellite_server_url }}"
     organization: "{{ satellite_organization }}"
