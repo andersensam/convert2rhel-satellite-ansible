@@ -22,6 +22,7 @@
         name: 'convert2rhel'
         state: absent
 
+    # Make sure to add section later for removing Katello RPM for local installs
     - name: The Convert2RHEL repo is not present
       yum_repository:
         name: convert2rhel

@@ -1,0 +1,25 @@
+---
+- name: Setup the Convert2RHEL Repo using a local Satellite Server
+  hosts: all
+  tasks:
+    - name: Validate distribution (CentOS or Oracle Linux)
+      meta: end_host
+      when: ansible_distribution != 'CentOS' and ansible_distribution != 'OracleLinux'
+
+    - name: Validate Release Version (6.10, 7.9, 8.4)
+      meta: end_host
+      when: ansible_distribution_version != '6.10' and ansible_distribution_version != '7.9' and ansible_distribution_version != '8.4'
+
+    - name: Download and install the Satellite CA RPM
+      yum:
+        name: "https://{{ satellite_server_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
+        state: present
+        validate_certs: False
+
+    - name: Enable the Convert2RHEL Repo
+      shell: "subscription-manager register --org=\"{{ satellite_organization }}\" --activationkey=\"{{ convert2rhel_activation_key }}\""
+
+    - name: Install Convert2RHEL Package
+      yum:
+        name: convert2rhel
+        state: latest
