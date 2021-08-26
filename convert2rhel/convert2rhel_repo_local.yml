@@ -7,7 +7,7 @@
 - name: Validate Release Version (6.10, 7.9, 8.4)
   fail:
     msg: "Invalid release version detected. Supported values are: 6.10, 7.9, and 8.4"
-  when: ansible_distribution_version != '6.10' and ansible_distribution_version != '7.9' and ansible_distribution_version != '8.4'
+  when: ansible_distribution_version != '6.10' and ansible_distribution_version != '7.7' and ansible_distribution_version != '8.4'
 
 - name: Download and install the Satellite CA RPM
   yum:
