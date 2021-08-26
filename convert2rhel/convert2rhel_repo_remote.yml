@@ -1,10 +1,12 @@
 ---
 - name: Validate distribution (CentOS or Oracle Linux)
-  meta: end_host
+  fail:
+    msg: "Invalid distribution detected. Supported values are: CentOS and Oracle Linux"
   when: ansible_distribution != 'CentOS' and ansible_distribution != 'OracleLinux'
 
 - name: Validate Release Version (6.10, 7.9, 8.4)
-  meta: end_host
+  fail:
+    msg: "Invalid release version detected. Supported values are: 6.10, 7.9, and 8.4"
   when: ansible_distribution_version != '6.10' and ansible_distribution_version != '7.9' and ansible_distribution_version != '8.4'
 
 - name: Download Red Hat GPG key
