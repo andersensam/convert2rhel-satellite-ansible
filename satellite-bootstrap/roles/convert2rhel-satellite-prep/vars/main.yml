@@ -6,7 +6,7 @@
 # satellite_lifecycle_environment: "Library"
 # satellite_location: "Raleigh"
 # satellite_subscription_name: "Red Hat Enterprise Linux"
-# fetch_rhsm_manifest: "True"
+# fetch_rhsm_manifest: true
 # rhsm_manifest_uuid: "123-456-789"
 # convert2rhel_versions:
 #     - "6"
