@@ -6,19 +6,16 @@
       user:
         name: "{{ svcansible_username }}"
         state: absent 
-      ignore_errors: yes
 
     - name: Service account home directory is deleted
       file:
         path: "{{ svcansible_home }}/{{ svcansible_username }}"
         state: absent
-      ignore_errors: yes
 
     - name: Service account is not in /etc/sudoers.d
       file:
         path: "/etc/sudoers.d/{{ svcansible_username }}"
         state: absent
-      ignore_errors: yes
 
     - name: Convert2RHEL is not present on the remote host
       yum:
