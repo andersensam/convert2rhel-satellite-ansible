@@ -1,0 +1,32 @@
+---
+    - include: preflight-checks.yml
+
+    - name: Launch Container and Create directory for Reports
+      block:
+      - name: OS Report directory is present
+        file:
+          path: "{{ home_dir }}/reports/css"
+          owner: "{{ report_user }}"
+          state: directory
+
+      - name: CSS is present on remote host
+        copy:
+          src: CSS/main.css
+          dest: "{{ home_dir }}/reports/css/main.css"
+
+  #    - name: HTML report is created
+  #      template:
+  #        src: templates/report-osversion.j2
+  #        dest: "{{ home_dir }}/reports/os.html"
+
+      - name: OS Report container is launched
+        containers.podman.podman_container:
+          name: report
+          image: quay.io/samander/nginx-report-base:latest
+          state: started
+          volume:
+            - "{{ home_dir }}/reports:/var/report:Z"
+          ports:
+            - "{{ target_port }}:8080"
+      run_once: True
+      delegate_to: "{{ container_host }}"

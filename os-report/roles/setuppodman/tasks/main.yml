@@ -1,0 +1,26 @@
+---
+    - name: 'Preflight Varible check :: container_host'
+      fail: msg='Please include the container_host to the variable "container_host"'
+      run_once: true
+      when: 'container_host is not defined'
+
+    - name: 'Preflight Varible check :: target_port'
+      fail: msg='Please include the target_port to the variable "target_port"'
+      run_once: true
+      when: 'target_port is not defined'
+
+    - name: Install podman on {{ container_host }}
+      block:
+      - name: Podman is installed on {{ container_host }}
+        yum:
+          name: '@container-tools'
+          state: present
+
+      - name: Port {{ target_port }} is exposed
+        firewalld:
+          port: "{{ target_port }}/tcp"
+          state: enabled
+          immediate: yes
+      ignore_errors: yes
+      run_once: True
+      delegate_to: "{{ container_host }}"
