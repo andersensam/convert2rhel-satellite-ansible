@@ -6,7 +6,8 @@
     url: "{{ 'https://ftp.redhat.com/redhat/convert2rhel/' + major_version + '/os' }}"
     activation_key: "{{ satellite_centos_activation_key_base_name + major_version }}"
     hostgroup_name: "{{ satellite_centos_hostgroup_base_name + major_version + ' Hosts' }}"
-    satellite_username_z: "{{ lookup('ini', 'user section=foreman file=' + FOREMAN_INI_PATH ) }}"
+    foreman_ini_path: "{{ lookup('env', 'FOREMAN_INI_PATH') }}"
+    satellite_username_z: "{{ lookup('ini', 'user section=foreman file=' + foreman_ini_path ) }}"
 
 - name: "{{ 'Set Release Version Fact for ' + major_version }}"
   set_fact:
