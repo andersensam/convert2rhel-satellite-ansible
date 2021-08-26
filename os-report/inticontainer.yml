@@ -1,0 +1,9 @@
+---
+- name: Initialize container
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: setuppodman
+      tags: ['podman']
+    - role: runreportcontainer
+      tags: ['startcontainer']
