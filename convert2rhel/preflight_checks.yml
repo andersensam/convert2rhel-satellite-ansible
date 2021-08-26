@@ -52,3 +52,9 @@
     msg: "The variable 'convert2rhel_source' is not defined!"
   run_once: True
   when: convert2rhel_source is not defined
+
+- name: Variable convert2rhel_activation_key is defined
+  fail:
+    msg: "The variable 'convert2rhel_activation_key' is not defined!"
+  run_once: True
+  when: convert2rhel_source == 'local' and convert2rhel_activation_key is not defined

@@ -46,7 +46,7 @@ satellite_server_url                                Satellite server URL, make s
 satellite_organization                              Satellite organization the converted host should be placed into
 activation_key                                      Activation Key from Satellite
 register_to_insights    'true'                      Register the host to Red Hat Insights
-convert2rhel_source     remote                      Fetch the Convert2RHEL package from Red Hat, or from a local Satellite Server
+convert2rhel_source     remote                      Fetch the Convert2RHEL package from Red Hat, or from a local Satellite Server. When defined, please also define convert2rhel_activation_key
 ```
 
 An example of a proper configuration is provided below:
@@ -59,7 +59,8 @@ satellite_server_url: 'https://satellite-services.lab.redhat.com'
 satellite_organization: AnsibleLab
 activation_key: Ansible_RHEL7
 register_to_insights: 'true'
-convert2rhel_source: remote
+convert2rhel_source: local
+convert2rhel_activation_key: '123-456-789'
 ```
 
 ## Other Design Considerations
