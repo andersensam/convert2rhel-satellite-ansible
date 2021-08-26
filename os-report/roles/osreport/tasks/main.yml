@@ -1,0 +1,14 @@
+---
+    - include: preflight-checks.yml
+
+    - name: Gather facts on inventory
+      setup:
+      register: all_facts
+
+    - name: HTML report is created
+      remote_user: "{{ report_user }}"
+      template:
+        src: templates/report-osversion.j2
+        dest: "{{ home_dir }}/reports/os.html"
+      run_once: True
+      delegate_to: "{{ container_host }}"

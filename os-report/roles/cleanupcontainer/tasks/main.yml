@@ -1,20 +1,16 @@
 ---
-- name: Cleanup the containerized OS Report
-  hosts: all
-  gather_facts: False
-  tasks:
-    - include: preflight-checks-os-report.yml
-    
+    - include: preflight-checks.yml
+
     - name: Cleanup container config
       block:
       - name: Stop the OS Report container
         containers.podman.podman_container:
-          name: os-report
+          name: report
           state: absent
-      
+
       - name: The os-report directory is removed
         file:
-          path: "{{ home_dir }}/os-report"
+          path: "{{ home_dir }}/reports"
           state: absent
       run_once: True
       delegate_to: "{{ container_host }}"

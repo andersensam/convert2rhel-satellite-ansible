@@ -1,0 +1,6 @@
+---
+- name: Cleanup container
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: cleanupcontainer

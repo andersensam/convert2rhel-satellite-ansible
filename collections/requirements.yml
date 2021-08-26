@@ -3,3 +3,5 @@ collections:
   - name: containers.podman
   - name: redhat.insights
   - name: redhat.satellite
+  - name: community.general
+  - name: ansible.controller

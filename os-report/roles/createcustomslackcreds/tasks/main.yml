@@ -1,0 +1,23 @@
+---
+  - include: preflight-checks.yml
+  - name: Creating Custom Controller Crediental for Slack messages
+    ansible.controller.tower_credential_type:
+      name: "{{ slackcredname }}"
+      description: Credential for Slack API Alerts
+      kind: cloud
+      inputs: {"fields":
+                [{
+                  "id": "slack_token",
+                  "type": "string",
+                  "label": "Slack webhook Token",
+                  "secret": true
+                }]
+              }
+      injectors: { "extra_vars":
+                   { "slack_token" : "{% raw %}{{slack_token}}{% endraw %}"}
+                 }
+
+
+      state: present
+      run_one: true
+      validate_certs: false

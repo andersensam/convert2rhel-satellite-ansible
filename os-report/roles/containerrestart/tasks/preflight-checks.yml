@@ -1,0 +1,5 @@
+---
+- name: 'Preflight Varible check :: home_dir'
+  fail: msg='Please include the home_dir to the variable "home_dir"'
+  run_once: true
+  when: 'home_dir is not defined'

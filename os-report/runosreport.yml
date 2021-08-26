@@ -1,0 +1,20 @@
+---
+- name: Check for live devices for report
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: hostalive
+      tags: ['hostalive']
+
+- name: Gather facts and create report
+  hosts: running_hosts
+  gather_facts: false
+  roles:
+    - role: osreport
+      tags: ['osreport']
+
+    - role: slackalerts
+      tags: ['slackalert']
+
+    - role: containerrestart
+      tags: ['containerrestart']
