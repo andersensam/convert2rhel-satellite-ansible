@@ -15,4 +15,4 @@
           immediate: yes
       ignore_errors: yes
       run_once: True
-      delegate_to: "{{ container_host }}
+      delegate_to: "{{ container_host }}"
