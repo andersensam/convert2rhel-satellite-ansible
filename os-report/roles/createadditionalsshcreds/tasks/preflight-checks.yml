@@ -1,0 +1,5 @@
+---
+- name: 'Preflight Varible check :: sshcredname'
+  fail: msg='Please include the sshcredname to the variable "sshcredname"'
+  run_once: true
+  when: 'sshcredname is not defined'

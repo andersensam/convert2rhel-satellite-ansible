@@ -1,0 +1,7 @@
+---
+- name: Creating custom AAP controller creds
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - role: createadditionalsshcreds
+      tags: ['sshcreds']
