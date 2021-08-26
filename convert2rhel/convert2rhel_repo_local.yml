@@ -11,7 +11,7 @@
 
 - name: Download and install the Satellite CA RPM
   yum:
-    name: "https://{{ satellite_server_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
+    name: "{{ satellite_server_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
     state: present
     validate_certs: False
 
