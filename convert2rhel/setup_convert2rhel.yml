@@ -2,8 +2,8 @@
 - name: Setup Convert2RHEL
   hosts: all
   tasks:
-    - import: convert2rhel_repo_local.yml
+    - include: convert2rhel_repo_local.yml
       when: convert2rhel_source == 'local'
 
-    - import: convert2rhel_repo_remote.yml
+    - include: convert2rhel_repo_remote.yml
       when: convert2rhel_source == 'remote'
