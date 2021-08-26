@@ -1,0 +1,25 @@
+---
+- name: Validate distribution (CentOS or Oracle Linux)
+  fail:
+    msg: "Invalid distribution detected. Supported values are: CentOS and Oracle Linux"
+  when: ansible_distribution != 'CentOS' and ansible_distribution != 'OracleLinux'
+
+- name: Validate Release Version (6.10, 7.9, 8.4)
+  fail:
+    msg: "Invalid release version detected. Supported values are: 6.10, 7.9, and 8.4"
+  when: ansible_distribution_version != '6.10' and ansible_distribution_version != '7.9' and ansible_distribution_version != '8.4'
+
+# Note that installing the Satellite CA RPM will install Subscription Manager if it's not already present
+- name: Download and install the Satellite CA RPM
+  yum:
+    name: "{{ satellite_server_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
+    state: present
+    validate_certs: False
+
+- name: Enable the Convert2RHEL Repo
+  shell: "subscription-manager register --org=\"{{ satellite_organization }}\" --activationkey=\"{{ convert2rhel_activation_key }}\""
+
+- name: Install Convert2RHEL Package
+  yum:
+    name: convert2rhel
+    state: latest
