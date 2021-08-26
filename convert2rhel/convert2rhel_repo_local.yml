@@ -9,6 +9,7 @@
     msg: "Invalid release version detected. Supported values are: 6.10, 7.9, and 8.4"
   when: ansible_distribution_version != '6.10' and ansible_distribution_version != '7.9' and ansible_distribution_version != '8.4'
 
+# Note that installing the Satellite CA RPM will install Subscription Manager if it's not already present
 - name: Download and install the Satellite CA RPM
   yum:
     name: "{{ satellite_server_url }}/pub/katello-ca-consumer-latest.noarch.rpm"

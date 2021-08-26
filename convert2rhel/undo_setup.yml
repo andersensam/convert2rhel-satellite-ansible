@@ -27,13 +27,27 @@
       yum_repository:
         name: convert2rhel
         state: absent
+      when: convert2rhel_source == 'remote'
 
     - name: The Red Hat GPG key is deleted
       file:
         path: "/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release"
         state: absent
+      when: convert2rhel_source == 'remote'
 
     - name: The Convert2RHEL directory is absent
       file:
         path: "/usr/share/convert2rhel"
         state: absent
+      when: convert2rhel_source == 'remote'
+
+    - name: The system is unregistered from Satellite
+      shell: "subscription-manager unregister"
+      when: convert2rhel_source == 'local'
+
+    # Note that this does not automatically remove Subscription Manager if it was installed
+    - name: Satellite CA package is uninstalled
+      yum:
+        name: "katello-ca-consumer-*"
+        state: absent
+      when: convert2rhel_source == 'local'
