@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - include: convert2rhel_repo_local.yml
-      when: convert2rhel_source == 'local'
+      when: use_local_convert2rhel
 
     - include: convert2rhel_repo_remote.yml
       when: convert2rhel_source == 'remote'
