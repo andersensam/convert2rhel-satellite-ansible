@@ -18,7 +18,7 @@
 
 - name: "{{ 'Enable RHEL ' + major_version + ' Server Repo' }}"
   redhat.satellite.repository_set:
-    username: "{{ satellite_username }}"
+    username: '{{ lookup("env", "SATELLITE6_USERNAME") }}'
     password: "{{ satellite_password }}"
     server_url: "{{ satellite_server_url }}"
     organization: "{{ satellite_organization }}"
