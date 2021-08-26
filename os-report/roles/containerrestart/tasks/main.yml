@@ -1,0 +1,10 @@
+---
+- include: preflight-checks.yml
+- name: Restart Container
+  remote_user: "{{ report_user }}"
+  containers.podman.podman_container:
+    name: report
+    state: started
+    force_restart: yes
+  run_once: True
+  delegate_to: "{{ container_host }}"
