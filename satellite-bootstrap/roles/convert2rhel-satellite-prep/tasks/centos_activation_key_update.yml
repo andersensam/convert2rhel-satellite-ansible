@@ -8,17 +8,14 @@
 - name: "Set Activation Key Label Name for CentOS 6"
   set_fact:
     centos6_label: "{{ satellite_organization + '_' + satellite_centos_product_base_name.replace(' ', '_') + '6_' + satellite_centos_repo_base_name.replace(' ', '_') + '6' }}"
-  when: major_version == '6'
 
 - name: "Set Activation Key Label Name for CentOS 7"
   set_fact:    
     centos7_label: "{{ satellite_organization + '_' + satellite_centos_product_base_name.replace(' ', '_') + '7_' + satellite_centos_repo_base_name.replace(' ', '_') + '7' }}"
-  when: major_version == '7'
 
 - name: "Set Activation Key Label Name for CentOS 8"
   set_fact:
     centos8_label: "{{ satellite_organization + '_' + satellite_centos_product_base_name.replace(' ', '_') + '8_' + satellite_centos_repo_base_name.replace(' ', '_') + '8' }}"
-  when: major_version == '8'
 
 - name: "Disable all RHEL Repos for CentOS Activation Keys"
   set_fact:
