@@ -42,11 +42,13 @@
 
 - name: Download Manifest from RHSM
   redhat.satellite.redhat_manifest:
-    username: "{{ rhsm_username }}"
-    password: "{{ rhsm_password }}"
-    uuid: "{{ rhsm_manifest_uuid }}"
+    username: "{{ rhsm_username | default('') }}"
+    password: "{{ rhsm_password | default('') }}"
+    uuid: "{{ rhsm_manifest_uuid | default('') }}"
     path: "exported_manifest.zip"
-  when: not rollback and fetch_rhsm_manifest
+  when: 
+    - not rollback 
+    - fetch_rhsm_manifest
 
 - name: Upload Satellite Manifest (RHSM)
   redhat.satellite.subscription_manifest:
@@ -56,7 +58,9 @@
     organization: "{{ satellite_organization }}"
     validate_certs: "{{ satellite_validate_certs }}"
     manifest_path: "exported_manifest.zip"
-  when: not rollback and fetch_rhsm_manifest
+  when: 
+    - not rollback
+    - fetch_rhsm_manifest
 
 - name: Upload Satellite Manifest (Local)
   redhat.satellite.subscription_manifest:
@@ -66,7 +70,9 @@
     organization: "{{ satellite_organization }}"
     validate_certs: "{{ satellite_validate_certs }}"
     manifest_path: "{{ satellite_manifest_path | default(role_path + '/files/satellite_manifest.zip') }}"
-  when: not rollback and not fetch_rhsm_manifest
+  when: 
+    - not rollback
+    - not fetch_rhsm_manifest
 
 # we need to refresh the manifest as *sometimes* it doesn't completely load
 - name: Refresh Satellite Manifest
