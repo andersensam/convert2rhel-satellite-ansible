@@ -70,15 +70,23 @@
     - major_version == '6'
 
 - name: Update Activation Key
-  redhat.satellite.activation_key:
-    username: "{{ satellite_username }}"
-    password: "{{ satellite_password }}"
-    server_url: "{{ satellite_server_url }}"
-    organization: "{{ satellite_organization }}"
-    validate_certs: "{{ satellite_validate_certs }}"
-    name: "{{ activation_key }}"
-    lifecycle_environment: "{{ satellite_lifecycle_environment }}"
-    content_overrides: "{{ disabled_repo_sets }}"
+  block:
+    - redhat.satellite.activation_key:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "{{ satellite_server_url }}"
+        organization: "{{ satellite_organization }}"
+        validate_certs: "{{ satellite_validate_certs }}"
+        name: "{{ activation_key }}"
+        lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+        content_overrides: "{{ disabled_repo_sets }}"
+      register: update_key_output
+  rescue:
+    # The previous task may fail if RHEL 6 and RHEL 8 are not enabled in 'convert2rhel_versions'
+    # Ignore a potential error saying "Content View not found", which is fine
+    - fail:
+        msg: "Failed to update the activation key. Full output: {{ update_key_output }}"
+      when: '"were not found in the Organization" not in update_key_output.error.displayMessage'
 
 # clear the fact so that on the next loop we don't have conflicting data
 - name: "Clear Disabled Repos Set Fact"
