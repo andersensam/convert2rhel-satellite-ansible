@@ -82,6 +82,8 @@
         content_overrides: "{{ disabled_repo_sets }}"
       register: update_key_output
   rescue:
+    # The previous task may fail if RHEL 6 and RHEL 8 are not enabled in 'convert2rhel_versions'
+    # Ignore a potential error saying "Content View not found", which is fine
     - fail:
         msg: "Failed to update the activation key. Full output: {{ update_key_output }}"
       when: '"were not found in the Organization" not in update_key_output.error.displayMessage'
