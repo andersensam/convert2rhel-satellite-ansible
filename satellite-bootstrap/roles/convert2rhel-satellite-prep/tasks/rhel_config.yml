@@ -3,6 +3,18 @@
   set_fact:
     activation_key: "{{ satellite_rhel_activation_key_base_name + major_version }}"
 
+- name: "{{ 'Set RHEL 6 & 7 facts' }}"
+  set_fact:
+    product_name: "Red Hat Enterprise Linux Server"
+    repo_name: "{{ 'Red Hat Enterprise Linux ' + major_version + ' Server RPMs x86_64 ' + major_version + 'Server' }}"
+  when: major_version == '6' or major_version == '7'
+
+- name: "{{ 'Set RHEL 8 facts' }}"
+  set_fact:
+    product_name: "Red Hat Enterprise Linux for x86_64"
+    repo_name: "{{ 'Red Hat Enterprise Linux ' + major_version + ' for x86_64 - BaseOS RPMs ' + major_version }}"
+  when: major_version == '8'
+
 - name: "{{ 'Enable RHEL ' + major_version + ' BaseOS Repo' }}"
   redhat.satellite.repository_set:
     username: "{{ satellite_username }}"
@@ -14,7 +26,6 @@
     repositories:
     - releasever: "8"
   when: major_version == "8"
-
 
 - name: "{{ 'Enable RHEL ' + major_version + ' Server Repo' }}"
   redhat.satellite.repository_set:
@@ -29,6 +40,27 @@
       basearch: "x86_64"
   when: major_version == "6" or major_version == "7"
 
+- name: "{{ 'Sync RHEL ' + major_version + ' Repo' }}"
+  redhat.satellite.repository_sync:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    repository: "{{ repo_name }}"
+    product: "{{ product_name }}"
+  async: 3600
+  poll: 0
+  register: repo_sync
+
+- name: "{{ 'Check on status of Repository Sync for RHEL ' + major_version + ' Repo'   }}"
+  async_status:
+    jid: "{{ repo_sync.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 360
+  delay: 10
+  
 # unfortunately the manifest does not return if it is SCA or not
 # so we hack around this by trying an actviation key with subs attached
 # if that fails, create the activation key without attaching subs
