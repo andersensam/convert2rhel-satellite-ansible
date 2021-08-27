@@ -48,18 +48,36 @@
     repository: "{{ repo_name }}"
     product: "{{ product_name }}"
 
-- name: "{{ 'Create Activation Key for CentOS '+ major_version }}"
-  redhat.satellite.activation_key:
-    username: "{{ satellite_username }}"
-    password: "{{ satellite_password }}"
-    server_url: "{{ satellite_server_url }}"
-    organization: "{{ satellite_organization }}"
-    validate_certs: "{{ satellite_validate_certs }}"
-    name: "{{ satellite_centos_activation_key_base_name + major_version }}"
-    lifecycle_environment: "{{ satellite_lifecycle_environment }}"
-    subscriptions:
-      - name: "{{ satellite_centos_product_base_name + major_version }}"
-    release_version: "{{ release_version }}"
+# unfortunately the manifest does not return if it is SCA or not
+# so we hack around this by trying an actviation key with subs attached
+# if that fails, create the activation key without attaching subs
+
+- name: Create Activation Key
+  block:
+  - name: "{{ 'Create Activation Key (no SCA) for CentOS '+ major_version }}"
+    redhat.satellite.activation_key:
+      username: "{{ satellite_username }}"
+      password: "{{ satellite_password }}"
+      server_url: "{{ satellite_server_url }}"
+      organization: "{{ satellite_organization }}"
+      validate_certs: "{{ satellite_validate_certs }}"
+      name: "{{ satellite_centos_activation_key_base_name + major_version }}"
+      lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+      subscriptions:
+        - name: "{{ satellite_centos_product_base_name + major_version }}"
+      release_version: "{{ release_version }}"
+  
+  rescue:
+  - name: "{{ 'Create Activation Key (SCA) for CentOS '+ major_version }}"
+    redhat.satellite.activation_key:
+      username: "{{ satellite_username }}"
+      password: "{{ satellite_password }}"
+      server_url: "{{ satellite_server_url }}"
+      organization: "{{ satellite_organization }}"
+      validate_certs: "{{ satellite_validate_certs }}"
+      name: "{{ satellite_centos_activation_key_base_name + major_version }}"
+      lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+      release_version: "{{ release_version }}"
 
 - name: Create CentOS Host Group for conversion
   redhat.satellite.hostgroup:
