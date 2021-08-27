@@ -24,4 +24,4 @@
         owner: root
         group: root
         mode: 'ug+rwX,o='
-      when: svcansible_sudoer == 'true'
+      when: svcansible_sudoer
