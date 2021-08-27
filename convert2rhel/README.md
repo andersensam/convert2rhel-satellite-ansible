@@ -40,12 +40,12 @@ Variable                Suggested Value             Description
 --------                ---------------             -----------
 svcansible_username     svcansible                  Username of service account to create
 svcansible_home         /var/lib/                   Prefix for service account home directory. Using /var/lib creates the directory /var/lib/$(svcansible_username)
-svcansible_sudoer       'true'                      Add the service account to /etc/sudoers.d directory, allowing passwordless sudo
+svcansible_sudoer       true                        Add the service account to /etc/sudoers.d directory, allowing passwordless sudo
 svcansible_public_key                               The public SSH key to install to the remote host. Follows the format of ~/.ssh/authorized_keys
 satellite_server_url                                Satellite server URL, make sure to include "https://"
 satellite_organization                              Satellite organization the converted host should be placed into
 activation_key                                      Activation Key from Satellite
-register_to_insights    'true'                      Register the host to Red Hat Insights
+register_to_insights    true                        Register the host to Red Hat Insights
 convert2rhel_source     remote                      Fetch the Convert2RHEL package from Red Hat, or from a local Satellite Server. When defined, please also define convert2rhel_activation_key
 ```
 
@@ -53,12 +53,12 @@ An example of a proper configuration is provided below:
 ```
 svcansible_username: svcansible
 svcansible_home: /var/lib/
-svcansible_sudoer: 'true'
+svcansible_sudoer: true
 svcansible_public_key: ssh-rsa <ssh-key-here> sam@samander-mac
 satellite_server_url: 'https://satellite-services.lab.redhat.com'
 satellite_organization: AnsibleLab
 activation_key: Ansible_RHEL7
-register_to_insights: 'true'
+register_to_insights: true
 convert2rhel_source: local
 convert2rhel_activation_key: '123-456-789'
 ```
