@@ -70,15 +70,21 @@
     - major_version == '6'
 
 - name: Update Activation Key
-  redhat.satellite.activation_key:
-    username: "{{ satellite_username }}"
-    password: "{{ satellite_password }}"
-    server_url: "{{ satellite_server_url }}"
-    organization: "{{ satellite_organization }}"
-    validate_certs: "{{ satellite_validate_certs }}"
-    name: "{{ activation_key }}"
-    lifecycle_environment: "{{ satellite_lifecycle_environment }}"
-    content_overrides: "{{ disabled_repo_sets }}"
+  block:
+    - redhat.satellite.activation_key:
+        username: "{{ satellite_username }}"
+        password: "{{ satellite_password }}"
+        server_url: "{{ satellite_server_url }}"
+        organization: "{{ satellite_organization }}"
+        validate_certs: "{{ satellite_validate_certs }}"
+        name: "{{ activation_key }}"
+        lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+        content_overrides: "{{ disabled_repo_sets }}"
+      register: update_key_output
+  rescue:
+    - fail:
+        msg: "Failed to update the activation key. Full output: {{ update_key_output }}"
+      when: "'were not found in' not in update_key_output"
 
 # clear the fact so that on the next loop we don't have conflicting data
 - name: "Clear Disabled Repos Set Fact"
