@@ -34,3 +34,38 @@ extra_vars:
 ```
 
 6. Click Save
+
+## Creating a custom Red Hat Satellite Credential Type
+While not required, it is strongly recommended to create a credential type for use by the Satellite Bootstrap process. Follow the above instructions for creating the `RHSM Credential`, using the following values:
+
+Input Configuration:
+```
+fields:
+  - id: username
+    type: string
+    label: Username
+  - id: password
+    type: string
+    label: Password
+    secret: true
+  - id: url
+    type: string
+    label: Satellite Server URL
+  - id: validate_certs
+    type: boolean
+    label: Validate SSL Certificates
+required:
+  - username
+  - password
+  - url
+  - validate_certs
+```
+
+Injector Configuration:
+```
+extra_vars:
+  satellite_password: '{{ password }}'
+  satellite_server_url: '{{ url }}'
+  satellite_username: '{{ username }}'
+  validate_certs: '{{ validate_certs }}'
+```
