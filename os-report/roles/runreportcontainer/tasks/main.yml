@@ -2,8 +2,8 @@
     - include: preflight-checks.yml
 
     - name: Launch Container and Create directory for Reports
+      remote_user: "{{ report_user }}"
       block:
-        remote_user: "{{ report_user }}"
       - name: OS Report directory is present
         file:
           path: "{{ home_dir }}/reports/css"
