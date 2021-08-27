@@ -5,5 +5,4 @@
   roles:
     - role: setuppodman
       tags: ['podman']
-    - role: runreportcontainer
-      tags: ['startcontainer']
+    
