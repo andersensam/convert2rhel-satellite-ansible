@@ -3,6 +3,9 @@
   hosts: all
   gather_facts: false
   roles:
+    - role: runreportcontainer
+      tags: ['startcontainer']
+      
     - role: hostalive
       tags: ['hostalive']
 
@@ -10,9 +13,6 @@
   hosts: running_hosts
   gather_facts: false
   roles:
-    - role: runreportcontainer
-      tags: ['startcontainer']
-
     - role: osreport
       tags: ['osreport']
 
