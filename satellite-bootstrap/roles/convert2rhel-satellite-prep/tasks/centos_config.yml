@@ -20,7 +20,7 @@
 
 - name: "{{ 'Create CentOS ' + major_version + ' Product' }}"
   redhat.satellite.product:
-    username: "{{ satellite_username_z }}"
+    username: "{{ satellite_username }}"
     password: "{{ satellite_password }}"
     server_url: "{{ satellite_server_url }}"
     organization: "{{ satellite_organization }}"
