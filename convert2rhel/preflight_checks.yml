@@ -34,7 +34,7 @@
     msg: "The variable 'svcansible_home' is not defined!"
   run_once: True
   when: 
-    - use_svcansible
+    - use_svcansible == 'True'
     - svcansible_home is not defined
 
 - name: Variable svcansible_public_key is defined
@@ -42,7 +42,7 @@
     msg: "The variable 'svcansible_public_key' is not defined!"
   run_once: True
   when: 
-    - use_svcansible
+    - use_svcansible == 'True'
     - svcansible_public_key is not defined
 
 - name: Variable svcansible_sudoer is defined
@@ -50,7 +50,7 @@
     msg: "The variable 'svcansible_sudoer' is not defined!"
   run_once: True
   when: 
-    - use_svcansible
+    - use_svcansible == 'True'
     - svcansible_sudoer is not defined
 
 - name: Variable svcansible_username is defined
@@ -58,7 +58,7 @@
     msg: "The variable 'svcansible_username' is not defined!"
   run_once: True
   when: 
-    - use_svcansible
+    - use_svcansible == 'True'
     - svcansible_username is not defined
 
 - name: Variable convert2rhel_source is defined
@@ -71,4 +71,6 @@
   fail:
     msg: "The variable 'convert2rhel_activation_key' is not defined!"
   run_once: True
-  when: convert2rhel_source == 'local' and convert2rhel_activation_key is not defined
+  when: 
+    - convert2rhel_source == 'local'
+    - convert2rhel_activation_key is not defined
