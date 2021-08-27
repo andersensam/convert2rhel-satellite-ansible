@@ -84,7 +84,7 @@
   rescue:
     - fail:
         msg: "Failed to update the activation key. Full output: {{ update_key_output }}"
-      when: '"were not found in the Organization" not in update_key_output.msg'
+      when: '"were not found in the Organization" not in update_key_output.error.displayMessage'
 
 # clear the fact so that on the next loop we don't have conflicting data
 - name: "Clear Disabled Repos Set Fact"
