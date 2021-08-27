@@ -4,6 +4,10 @@
     name: insights-client
     state: present
 
-- name: Enable the Insights client and register
+- name: Use the correct hostname for Insights
   redhat.insights.insights_config:
     display_name: "{{ inventory_hostname }}"
+
+- name: Enable Insights
+  redhat.insights.insights_register:
+    state: present

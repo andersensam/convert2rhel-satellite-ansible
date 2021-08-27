@@ -16,7 +16,7 @@
       when: ansible_distribution == 'CentOS' or ansible_distribution == 'OracleLinux'
 
     - include: register_insights.yml
-      when: register_to_insights
+      when: register_to_insights == 'True'
 
   handlers:
     - name: Reboot the remote host
