@@ -38,6 +38,7 @@ The recommended way to utilize the Convert2RHEL playbooks is to create a Workflo
 ```
 Variable                Suggested Value             Description
 --------                ---------------             -----------
+use_svcansible          true                        Create a service account if true
 svcansible_username     svcansible                  Username of service account to create
 svcansible_home         /var/lib/                   Prefix for service account home directory. Using /var/lib creates the directory /var/lib/$(svcansible_username)
 svcansible_sudoer       true                        Add the service account to /etc/sudoers.d directory, allowing passwordless sudo

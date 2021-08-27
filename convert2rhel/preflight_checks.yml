@@ -1,4 +1,10 @@
 ---
+- name: Variable use_svcansible is defined
+  fail:
+    msg: "The variable 'use_svcansible' is not defined!"
+  run_once: True
+  when: activation_key is not defined
+
 - name: Variable activation_key is defined
   fail:
     msg: "The variable 'activation_key' is not defined!"
@@ -27,25 +33,33 @@
   fail:
     msg: "The variable 'svcansible_home' is not defined!"
   run_once: True
-  when: svcansible_home is not defined
+  when: 
+    - use_svcansible
+    - svcansible_home is not defined
 
 - name: Variable svcansible_public_key is defined
   fail:
     msg: "The variable 'svcansible_public_key' is not defined!"
   run_once: True
-  when: svcansible_public_key is not defined
+  when: 
+    - use_svcansible
+    - svcansible_public_key is not defined
 
 - name: Variable svcansible_sudoer is defined
   fail:
     msg: "The variable 'svcansible_sudoer' is not defined!"
   run_once: True
-  when: svcansible_sudoer is not defined
+  when: 
+    - use_svcansible
+    - svcansible_sudoer is not defined
 
 - name: Variable svcansible_username is defined
   fail:
     msg: "The variable 'svcansible_username' is not defined!"
   run_once: True
-  when: svcansible_username is not defined
+  when: 
+    - use_svcansible
+    - svcansible_username is not defined
 
 - name: Variable convert2rhel_source is defined
   fail:
