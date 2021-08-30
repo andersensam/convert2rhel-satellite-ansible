@@ -1,11 +1,11 @@
 ## How to use this document
-This README is provided to give guidelines on setting up a workflow in Ansible Tower to convert CentOS/Oracle Linux to Red Hat Enterprise Linux. This document will not cover setup of Ansible Tower, nor how to setup credentials, etc. Variable definitions and playbook-by-playbook explanations are given.
+This README is provided to give guidelines on setting up a workflow in Ansible Controller to convert CentOS/Oracle Linux to Red Hat Enterprise Linux. This document will not cover setup of Ansible Controller, nor how to setup credentials, etc. Variable definitions and playbook-by-playbook explanations are given.
 
 ## Prerequisites
-- Ansible Tower version >= 3.8.0 installed
-- Host inventories have been created and are accessible from Ansible Tower (validate by using `test_access.yml`)
-- Public/private key-pair for provisioning the service account. This should be added as a credential in Ansible Tower
-- Red Hat Satellite is installed and accessible from Ansible Tower
+- Ansible Controller version >= 3.8.0 installed
+- Host inventories have been created and are accessible from Ansible Controller (validate by using `test_access.yml`)
+- Public/private key-pair for provisioning the service account. This should be added as a credential in Ansible Controller
+- Red Hat Satellite is installed and accessible from Ansible Controller
 - At least one Content View and Lifecycle Environment exist, with an Activation Key generated for use on remote hosts
 - If using Slack for notifications, a Slack Credential exists within the Tower Vault
 
@@ -38,15 +38,15 @@ The recommended way to utilize the Convert2RHEL playbooks is to create a Workflo
 ```
 Variable                Suggested Value             Description
 --------                ---------------             -----------
-use_svcansible          true                        Create a service account if true
+use_svcansible          'True'                      Create a service account if true
 svcansible_username     svcansible                  Username of service account to create
 svcansible_home         /var/lib/                   Prefix for service account home directory. Using /var/lib creates the directory /var/lib/$(svcansible_username)
-svcansible_sudoer       true                        Add the service account to /etc/sudoers.d directory, allowing passwordless sudo
+svcansible_sudoer       'True'                      Add the service account to /etc/sudoers.d directory, allowing passwordless sudo
 svcansible_public_key                               The public SSH key to install to the remote host. Follows the format of ~/.ssh/authorized_keys
 satellite_server_url                                Satellite server URL, make sure to include "https://"
 satellite_organization                              Satellite organization the converted host should be placed into
 activation_key                                      Activation Key from Satellite
-register_to_insights    true                        Register the host to Red Hat Insights
+register_to_insights    'True'                      Register the host to Red Hat Insights
 convert2rhel_source     remote                      Fetch the Convert2RHEL package from Red Hat, or from a local Satellite Server. When defined, please also define convert2rhel_activation_key
 ```
 

@@ -1,0 +1,15 @@
+---
+- name: Update all packages on a CentOS/Oracle Linux host and reboot
+  hosts: all
+  gather_facts: False
+  tasks:
+    - name: Update packages via yum
+      yum:
+        name: '*'
+        state: latest
+        update_only: yes # Ensure we don't install any new packages, only update existing packages
+      notify: Reboot the remote host
+
+  handlers:
+    - name: Reboot the remote host
+      reboot:
