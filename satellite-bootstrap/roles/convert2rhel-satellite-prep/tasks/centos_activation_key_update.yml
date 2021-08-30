@@ -17,9 +17,20 @@
   set_fact:
     centos8_label: "{{ satellite_organization + '_' + satellite_centos_product_base_name.replace(' ', '_') + '8_' + satellite_centos_repo_base_name.replace(' ', '_') + '8' }}"
 
-- name: "Disable all RHEL Repos for CentOS Activation Keys"
+- name: "Disable RHEL 6 Repo"
   set_fact:
-    disabled_repo_sets: "{{ [ {'label': 'rhel-6-server-rpms', 'override': 'disabled'}, {'label': 'rhel-7-server-rpms', 'override': 'disabled'}, {'label': 'rhel-8-for-x86_64-baseos-rpms', 'override': 'disabled'} ] }}"
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-6-server-rpms', 'override': 'disabled'} ] }}"
+  when: '"6" in convert2rhel_versions'
+
+- name: "Disable RHEL 7 Repo"
+  set_fact:
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-7-server-rpms', 'override': 'disabled'} ] }}"
+  when: '"7" in convert2rhel_versions'
+
+- name: "Disable RHEL 8 Repo"
+  set_fact:
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-8-for-x86_64-baseos-rpms', 'override': 'disabled'} ] }}"
+  when: '"8" in convert2rhel_versions'
 
 - name: "Disable CentOS 6 Repos for CentOS 8 Activation Key"
   set_fact:

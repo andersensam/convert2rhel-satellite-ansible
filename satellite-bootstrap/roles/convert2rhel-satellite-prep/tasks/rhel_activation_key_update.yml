@@ -12,14 +12,25 @@
 - name: "Set Activation Key Label Name for CentOS 7"
   set_fact:
     centos7_label: "{{ satellite_organization + '_' + satellite_centos_product_base_name.replace(' ', '_') + '7_' + satellite_centos_repo_base_name.replace(' ', '_') + '7' | default('') }}"
-
+ 
 - name: "Set Activation Key Label Name for CentOS 8"
   set_fact:
     centos8_label: "{{ satellite_organization + '_' + satellite_centos_product_base_name.replace(' ', '_') + '8_' + satellite_centos_repo_base_name.replace(' ', '_') + '8' | default('') }}"
 
-- name: "Disable all CentOS Repos for RHEL Activation Keys"
+- name: "Disable CentOS 6 Repo"
   set_fact:
-    disabled_repo_sets: "{{ [ {'label': centos6_label, 'override': 'disabled'}, {'label': centos7_label, 'override': 'disabled'}, {'label': centos8_label, 'override': 'disabled'} ] }}"
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': centos6_label, 'override': 'disabled'} ] }}"
+  when: '"6" in convert2rhel_versions'
+
+- name: "Disable CentOS 7 Repo"
+  set_fact:
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': centos7_label, 'override': 'disabled'} ] }}"
+  when: '"7" in convert2rhel_versions'
+
+- name: "Disable CentOS 8 Repo"
+  set_fact:
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': centos8_label, 'override': 'disabled'} ] }}"
+  when: '"8" in convert2rhel_versions'
 
 - name: "Disable RHEL 6 Repos for RHEL 8 Activation Key"
   set_fact:
@@ -70,23 +81,15 @@
     - major_version == '6'
 
 - name: Update Activation Key
-  block:
-    - redhat.satellite.activation_key:
-        username: "{{ satellite_username }}"
-        password: "{{ satellite_password }}"
-        server_url: "{{ satellite_server_url }}"
-        organization: "{{ satellite_organization }}"
-        validate_certs: "{{ satellite_validate_certs }}"
-        name: "{{ activation_key }}"
-        lifecycle_environment: "{{ satellite_lifecycle_environment }}"
-        content_overrides: "{{ disabled_repo_sets }}"
-      register: update_key_output
-  rescue:
-    # The previous task may fail if RHEL 6 and RHEL 8 are not enabled in 'convert2rhel_versions'
-    # Ignore a potential error saying "Content View not found", which is fine
-    - fail:
-        msg: "Failed to update the activation key. Full output: {{ update_key_output }}"
-      when: '"were not found in the Organization" not in update_key_output.error.displayMessage'
+  redhat.satellite.activation_key:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ activation_key }}"
+    lifecycle_environment: "{{ satellite_lifecycle_environment }}"
+    content_overrides: "{{ disabled_repo_sets }}"
 
 # clear the fact so that on the next loop we don't have conflicting data
 - name: "Clear Disabled Repos Set Fact"
