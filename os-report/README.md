@@ -71,7 +71,7 @@ INPUT CONFIGURATION:
 
 INJECTOR CONFIGURATION:
 <pre class="line-number language-yaml"><code>extra_vars:
-    my_ssh_key_file: '{{tower.filename}}'
+  my_ssh_key_file: '{{tower.filename}}'
 file:
   template: '{{my_ssh_key}}'
 </code></pre>
