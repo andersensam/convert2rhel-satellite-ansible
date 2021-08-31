@@ -13,7 +13,7 @@
   yum_repository:
     name: rhsm-repo
     description: RHSM for OS {{ ansible_distribution_major_version }}
-    baseurl: "{{ rhel6_rhsm_repo }}/repo"
+    baseurl: "{{ rhel6_rhsm_repo }}"
     enabled: yes
     gpgcheck: no
   when:
