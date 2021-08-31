@@ -52,6 +52,31 @@ home_dir: /var/lib/tmp          # Home directory of the container
 
 ![image](https://user-images.githubusercontent.com/17077661/131546348-97fcd07c-7866-4a58-875f-7fff84a3f329.png)
 
+## ADDITONAL SSH CREDS FOR TEMPLATE: 
+
+## CREATE CUSTOM CREDS FOR report_user:
+
+INPUT CONFIGURATION:
+
+<pre class="line-number language-yaml"><code>fields:
+  - id: username
+    type: string
+    label: Username
+  - id: my_ssh_key
+    type: string
+    label: Private Key
+    secret: true
+    multiline: true
+</code></pre>
+
+INJECTOR CONFIGURATION:
+<pre class="line-number language-yaml"><code>extra_vars:
+    my_ssh_key_file: '{{tower.filename}}'
+file:
+  template: '{{my_ssh_key}}'
+</code></pre>
+
+
 
 
 ## OPTIONAL STEP FOR SLACK ALERTS: 
@@ -72,14 +97,10 @@ INJECTOR CONFIGURATION:
   slack_token: '{{ slack_token }}'
 </code></pre>
 
-##ADDITIONAL VARIABLES THAT NEED TO BE DEFINED IN TEMPLATE WHEN SENDING SLACK ALERT: 
-![image](https://user-images.githubusercontent.com/17077661/120726995-4790bc80-c48e-11eb-818b-d9b60e02d188.png)
+##ADDITIONAL CREDs THAT NEED TO BE DEFINED IN TEMPLATE WHEN SENDING SLACK ALERT AND/OR USING DIFFERENT USER FOR PODMAN-HOST: 
+![image](https://user-images.githubusercontent.com/17077661/131546504-ce7abd54-b1c4-489b-8c63-26bdd06e09ac.png)
 
-
-<pre class="line-number language-yaml"><code>channel: '#Toweralerts'        # Channel that you want to send the Slack Alert to
-slackuser: Ansible Contoller   # Username that shows up as posted message in Slack
-</code></pre>
-
+## Example Slack Alert
 ![image](https://user-images.githubusercontent.com/17077661/120726695-8bcf8d00-c48d-11eb-916c-581f23f40382.png)
 
 
