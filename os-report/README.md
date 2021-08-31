@@ -50,7 +50,8 @@ report_user: ec2-user           # User that is to spin up the contianer must hav
 home_dir: /var/lib/tmp          # Home directory of the container
 </code></pre>
 
-![image](https://user-images.githubusercontent.com/17077661/131546348-97fcd07c-7866-4a58-875f-7fff84a3f329.png)
+![image](https://user-images.githubusercontent.com/17077661/131547021-b14b71c4-e04a-4f6c-bd65-1200547e3725.png)
+
 
 ## ADDITONAL SSH CREDS FOR TEMPLATE: 
 
