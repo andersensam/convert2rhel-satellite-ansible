@@ -4,7 +4,7 @@ This folder contains everything you need to run a report against and inventory f
 additional_ssh_cred.yml        # will create custom creds in Tower (need tower creds etc) easier to copy and paste see below
 cleanup_reports.yml            # This will stop the container and remove the home dir for the container
 init_container.yml             # This will make sure @container-tools is installed on targeted machine, and enable port for conatiner access
-run_os_report.yml              # This will start the container, copy css to container_host, Check for alive host in inventory, and create html report
+run_os_report.yml              # This will start the container, copy css to container_host, Check for alive hosts, and create html report
 slack_custome_cred.yml         # will create custom Slack creds in Tower (need tower creds etc) easier to copy and paste see below
 
 
