@@ -21,12 +21,16 @@ This checks an inventory for family of OS and creates a report review in a conat
 
 <B>1 - Install podman on target container host and open port for HTML access. </B>
  
-PLAYBOOK: install-podman.yml 
-     
+PLAYBOOK: init_container.yml 
+ESCALATION: Needed 
+
 ## VARS TO BE DEFINED: 
 <pre class="line-number language-yaml"><code>container_host: podmanserver    # Host in inventory that is RHEL8 and where you want a container spun up for HTML report
 target_port: 8081               # Port to xlate to container port 8080 
 </code></pre>
+
+![image](https://user-images.githubusercontent.com/17077661/131545799-ef1aa5a0-0f08-427e-b814-06334d22d9e1.png)
+
 
 ## Generate report against target inventory 
 
