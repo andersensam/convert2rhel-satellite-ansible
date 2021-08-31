@@ -5,5 +5,5 @@
   remote_user: "{{ repo_user }}"
   become: False
   containers.podman.podman_container:
-    name: rhsm-container
+    name: rhsm-repo
     state: absent
