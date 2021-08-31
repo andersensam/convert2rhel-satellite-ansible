@@ -1,12 +1,13 @@
 ## os-report
 This folder contains everything you need to run a report against and inventory for Linux OS Types
 <pre class="line-number language-yaml"><code>
-cleanup-os-report.yml           # this removes container and home directory
-cleanup-ports.yml               # Needs Privledge escalation to close port
-create-os-report.yml            # Main playbook to create HTML report on container host (See Below)
-install-podman.yml              # Install Podman and map port for HTML container report
-preflight-checks-os-report.yml  # Playbook for checking variable defined before launch
-report-osversion.j2             # jinja2 template for HTML report creation
+additional_ssh_cred.yml        # will create custom creds in Tower (need tower creds etc) easier to copy and paste see below
+cleanup_reports.yml            # This will stop the container and remove the home dir for the container
+init_container.yml             # This will make sure @container-tools is installed on targeted machine, and enable port for conatiner access
+run_os_report.yml              # This will start the container, copy css to container_host, Check for alive host in inventory, and create html report
+slack_custome_cred.yml         # will create custom Slack creds in Tower (need tower creds etc) easier to copy and paste see below
+
+
 </code></pre>
 ## OS Reports:
 
