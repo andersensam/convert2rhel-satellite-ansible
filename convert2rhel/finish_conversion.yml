@@ -12,7 +12,7 @@
       notify: Reboot the remote host
 
     - name: Execute the Convert2RHEL script (keep existing RHSM)
-      shell: convert2rhel -k "{{ activation_key }}" -o "{{ satellite_organization }}" --debug -y
+      shell: convert2rhel -k "{{ activation_key }}" -o "{{ satellite_organization }}" --debug -y --keep-rhsm
       when: 
         - ansible_distribution == 'CentOS' or ansible_distribution == 'OracleLinux'
         - convert2rhel_source == 'local'
