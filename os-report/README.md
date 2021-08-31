@@ -35,14 +35,24 @@ target_port: 8081               # Port to xlate to container port 8080
 
 ## Generate report against target inventory 
 
-PLAYBOOK: create-os-report.yml
+PLAYBOOK: run_os_report.yml
  
 ## VARS TO BE DEFINED: 
 
-<pre class="line-number language-yaml"><code>container_host: podmanserver    # Host in inventory that is RHEL8 and where you want a container spun up for HTML report
-home_dir: /var/lib/tmp/         # directory user can access for container
-target_port: 8081               # Port to xlate to container port 8080
+<pre class="line-number language-yaml"><code># for containerrestart
+target_port: 8080               # external port for container
+# for Slackalerts (Optional)
+channel: '#Toweralerts'         # Channel for slack Alerts    
+slackuser: Ansible Controller   # User that sends slack Alerts to channel
+# for osreport
+container_host: podman-host     # Host in inventory that is RHEL8 and where you want a container spun up for HTML report
+report_user: ec2-user           # User that is to spin up the contianer must have custom creds setup if not using same user that has access to the inventory
+home_dir: /var/lib/tmp          # Home directory of the container
 </code></pre>
+
+![image](https://user-images.githubusercontent.com/17077661/131546348-97fcd07c-7866-4a58-875f-7fff84a3f329.png)
+
+
 
 ## OPTIONAL STEP FOR SLACK ALERTS: 
 
