@@ -36,7 +36,9 @@ target_port: 8081               # Port to xlate to container port 8080
 ## Generate report against target inventory 
 
 PLAYBOOK: run_os_report.yml
- 
+
+ESCALATION: Not Needed
+
 ## VARS TO BE DEFINED: 
 
 <pre class="line-number language-yaml"><code># for containerrestart
