@@ -2,6 +2,8 @@
 - name: Playbook to undo changes made before running 'convert2rhel'
   hosts: all
   tasks:
+    - include: preflight_checks.yml
+    
     - name: Service account is removed
       user:
         name: "{{ svcansible_username }}"

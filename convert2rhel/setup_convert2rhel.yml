@@ -2,6 +2,8 @@
 - name: Setup Convert2RHEL
   hosts: all
   tasks:
+    - include: preflight_checks.yml
+    
     - include: convert2rhel_repo_local.yml
       when: convert2rhel_source == 'local'
 

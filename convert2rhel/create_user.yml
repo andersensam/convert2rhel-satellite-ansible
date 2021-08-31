@@ -3,6 +3,8 @@
   hosts: all
   gather_facts: False
   tasks:
+    - include: preflight_checks.yml
+    
     - name: service account is present
       user:
         name: "{{ svcansible_username }}"

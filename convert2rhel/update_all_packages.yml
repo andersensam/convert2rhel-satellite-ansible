@@ -3,6 +3,8 @@
   hosts: all
   gather_facts: False
   tasks:
+    - include: preflight_checks.yml
+    
     - name: Update packages via yum
       yum:
         name: '*'
