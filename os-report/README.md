@@ -98,7 +98,7 @@ INJECTOR CONFIGURATION:
   slack_token: '{{ slack_token }}'
 </code></pre>
 
-##ADDITIONAL CREDs SENDING SLACK ALERT AND/OR USING DIFFERENT USER FOR PODMAN-HOST: 
+##ADDITIONAL CREDs SENDING SLACK ALERT AND/OR USING DIFFERENT USER FOR PODMAN-HOST IN run_os_report.yml (Template): 
 
 ![image](https://user-images.githubusercontent.com/17077661/131546504-ce7abd54-b1c4-489b-8c63-26bdd06e09ac.png)
 
