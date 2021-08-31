@@ -21,7 +21,8 @@ This checks an inventory for family of OS and creates a report review in a conat
 
 <B>1 - Install podman on target container host and open port for HTML access. </B>
  
-PLAYBOOK: init_container.yml 
+PLAYBOOK: init_container.yml
+
 ESCALATION: Needed 
 
 ## VARS TO BE DEFINED: 
