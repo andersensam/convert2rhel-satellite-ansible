@@ -1,0 +1,15 @@
+---
+- include: preflight-checks.yml
+
+- name: Podman is installed
+  yum:
+    name: '@container-tools'
+    state: present
+
+- name: Port {{ target_port }} is exposed
+  firewalld:
+    port: "{{ target_port }}/tcp"
+    state: enabled
+    immediate: yes
+  ignore_errors: yes
+  run_once: True
