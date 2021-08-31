@@ -15,7 +15,7 @@
     name: "{{ satellite_server_url }}/pub/katello-ca-consumer-latest.noarch.rpm"
     state: present
     validate_certs: False
-    diable_gpg_check: True
+    disable_gpg_check: True
 
 - name: Enable the Convert2RHEL Repo
   shell: "subscription-manager register --org=\"{{ satellite_organization }}\" --activationkey=\"{{ convert2rhel_activation_key }}\""
