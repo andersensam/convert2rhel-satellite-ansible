@@ -58,7 +58,7 @@
 
 - name: "Disable RHEL 8 Repos for RHEL 7 Activation Key"
   set_fact:
-    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-8-for-x86_64-baseos-rpms' , 'override': 'disabled'} ] }}"
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-8-for-x86_64-baseos-rpms', 'override': 'disabled'}, {'label': 'rhel-8-for-x86_64-appstream-rpms', 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
   when: 
     - item == '8'
@@ -74,7 +74,7 @@
 
 - name: "Disable RHEL 8 Repos for RHEL 6 Activation Key"
   set_fact:
-    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-8-for-x86_64-baseos-rpms', 'override': 'disabled'} ] }}"
+    disabled_repo_sets: "{{ disabled_repo_sets | default([]) + [ {'label': 'rhel-8-for-x86_64-baseos-rpms', 'override': 'disabled'}, {'label': 'rhel-8-for-x86_64-appstream-rpms', 'override': 'disabled'} ] }}"
   loop: "{{ convert2rhel_versions }}"
   when: 
     - item == '8'
