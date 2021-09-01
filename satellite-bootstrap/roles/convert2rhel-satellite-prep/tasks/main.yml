@@ -26,8 +26,7 @@
 
 - name: "PLEASE COMPLETE INITIAL SETUP"
   ansible.builtin.debug:
-    msg: |
-      "Either your Location or Organization has not been defined yet.  Please make sure that you have done the initial setup"
+    msg: "Either your Location or Organization has not been defined yet.  Please make sure that you have done the initial setup"
   failed_when: organization.changed or location.changed
   when:
     - organization.changed or location.changed
