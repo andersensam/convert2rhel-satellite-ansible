@@ -3,8 +3,6 @@
 
     - name: Launch Container and Create directory for Reports
       remote_user: "{{ report_user }}"
-      vars:
-        ansible_private_key_file: "{{ my_ssh_key_file }}"
       block:
       - name: OS Report directory is present
         file:
