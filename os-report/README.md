@@ -58,7 +58,7 @@ home_dir: /var/lib/tmp          # Home directory of the container
 ## ADDITONAL SSH CREDS FOR TEMPLATE: 
 
 ### Please note that all servers including report_host should have SSH_keys setup.  Username/Password will only work if its the same across the whole inventory.  SSH keys can have different usernames and sshkeys for the playbooks.
-### Recommendation is the create a service account/sshkey consitant across the inventory.
+### Recommendation is the create a service account/sshkey consitent across the inventory.
 
 ## CREATE CUSTOM CREDS FOR report_user:
 
