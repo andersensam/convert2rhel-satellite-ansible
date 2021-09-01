@@ -1,0 +1,6 @@
+---
+- name: Setup Podman and Launch the RHSM Repo Container
+  hosts: all
+  roles:
+    - setup-podman
+    - run-repo-container

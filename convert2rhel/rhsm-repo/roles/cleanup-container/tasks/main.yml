@@ -1,0 +1,9 @@
+---
+- include: preflight-checks.yml
+
+- name: The RHSM Repo Container is Stopped and Removed
+  remote_user: "{{ repo_user }}"
+  become: False
+  containers.podman.podman_container:
+    name: rhsm-repo
+    state: absent

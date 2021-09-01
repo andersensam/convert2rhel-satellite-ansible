@@ -1,0 +1,13 @@
+---
+- include: preflight-checks.yml
+
+- name: RHSM Repo is Launched
+  remote_user: "{{ repo_user }}"
+  become: False
+  containers.podman.podman_container:
+    name: rhsm-repo
+    image: quay.io/samander/convert2rhel-rhsm:latest
+    state: started
+    ports:
+      - "{{ target_port }}:8080"
+  run_once: True

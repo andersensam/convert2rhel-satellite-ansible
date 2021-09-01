@@ -1,0 +1,5 @@
+---
+- name: Cleanup the RHSM Repo Container
+  hosts: all
+  roles:
+    - cleanup-container

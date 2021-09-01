@@ -74,3 +74,17 @@
   when: 
     - convert2rhel_source == 'local'
     - convert2rhel_activation_key is not defined
+
+- name: Variable rhel6_rhsm_preinstalled is defined
+  fail:
+    msg: "The variable 'rhel6_rhsm_preinstalled' is not defined!"
+  run_once: True
+  when: rhel6_rhsm_preinstalled is not defined
+
+- name: Variable rhel6_rhsm_repo is not defined
+  fail:
+    msg: "The variable 'rhel6_rhsm_repo' is not defined!"
+  run_once: True
+  when:
+    - rhel6_rhsm_preinstalled == 'False'
+    - rhel6_rhsm_repo is not defined

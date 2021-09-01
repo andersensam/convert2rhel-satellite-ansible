@@ -14,3 +14,4 @@ convert2rhel_versions:
     - "8"
 rollback: false
 fetch_rhsm_manifest: false
+skip_content_sync: "False"

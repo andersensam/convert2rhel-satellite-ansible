@@ -3,6 +3,8 @@
   hosts: all
   gather_facts: False
   tasks:
+    - include: preflight_checks.yml
+    
     - name: Ensure the Convert2RHEL directories exist
       file:
         path: /usr/share/convert2rhel/subscription-manager

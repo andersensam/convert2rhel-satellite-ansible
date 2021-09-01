@@ -52,6 +52,7 @@
   async: 7200
   poll: 0
   register: repo_sync
+  when: skip_content_sync == 'False'
 
 - name: "{{ 'Check on status of Repository Sync for RHEL ' + major_version + ' Repo'   }}"
   async_status:
@@ -60,6 +61,7 @@
   until: job_result.finished
   retries: 720
   delay: 10
+  when: skip_content_sync == 'False'
   
 # unfortunately the manifest does not return if it is SCA or not
 # so we hack around this by trying an actviation key with subs attached

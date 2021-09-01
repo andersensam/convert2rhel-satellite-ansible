@@ -1,0 +1,10 @@
+---
+- name: 'Preflight Varible check :: target_port'
+  fail: msg='Please include the target_port to the variable "target_port"'
+  run_once: true
+  when: 'target_port is not defined'
+
+- name: 'Preflight Varible check :: repo_user'
+  fail: msg='Please include the target_port to the variable "repo_user"'
+  run_once: true
+  when: 'repo_user is not defined'

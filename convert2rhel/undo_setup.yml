@@ -2,6 +2,8 @@
 - name: Playbook to undo changes made before running 'convert2rhel'
   hosts: all
   tasks:
+    - include: preflight_checks.yml
+    
     - name: Service account is removed
       user:
         name: "{{ svcansible_username }}"
@@ -55,3 +57,21 @@
         name: "katello-ca-consumer-*"
         state: absent
       when: convert2rhel_source == 'local'
+
+    - name: Subscription Manager is Uninstalled (6)
+      yum:
+        name:
+          - subscription-manager
+          - python-rhsm
+        state: absent
+      when:
+        - rhel6_rhsm_preinstalled == 'False'
+        - ansible_distribution_version == '6.10'
+
+    - name: The RHSM repo is not present
+      yum_repository:
+        name: rhsm-repo
+        state: absent
+      when:
+        - rhel6_rhsm_preinstalled == 'False'
+        - ansible_distribution_version == '6.10'

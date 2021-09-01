@@ -2,9 +2,20 @@
 - name: Finish the conversion to RHEL
   hosts: all
   tasks:
-    - name: Execute the Convert2RHEL script
+    - include: preflight_checks.yml
+
+    - name: Execute the Convert2RHEL script (fetch RHSM)
       shell: convert2rhel -k "{{ activation_key }}" -o "{{ satellite_organization }}" --debug -y
-      when: ansible_distribution == 'CentOS' or ansible_distribution == 'OracleLinux'
+      when: 
+        - ansible_distribution == 'CentOS' or ansible_distribution == 'OracleLinux'
+        - convert2rhel_source == 'remote'
+      notify: Reboot the remote host
+
+    - name: Execute the Convert2RHEL script (keep existing RHSM)
+      shell: convert2rhel -k "{{ activation_key }}" -o "{{ satellite_organization }}" --debug -y --keep-rhsm
+      when: 
+        - ansible_distribution == 'CentOS' or ansible_distribution == 'OracleLinux'
+        - convert2rhel_source == 'local'
       notify: Reboot the remote host
 
     - name: Refresh host facts
