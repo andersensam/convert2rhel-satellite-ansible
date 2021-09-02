@@ -26,6 +26,18 @@
     validate_certs: "{{ satellite_validate_certs }}"
     name: "{{ product_name }}"
 
+- name: "{{ 'Create Credential for Convert2RHEL ' + major_version + ' Repo' }}"
+  redhat.satellite.content_credential:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ 'Convert2RHEL ' + major_version + ' CA Chain' }}"
+    content_type: cert
+    content: "{{ cdn_redhat_com_chain }}"
+    state: present
+
 - name: "{{ 'Create Convert2RHEL ' + major_version + ' Repo' }}"
   redhat.satellite.repository:
     username: "{{ satellite_username }}"
@@ -37,7 +49,7 @@
     content_type: "yum"
     product: "{{ product_name }}"
     url: "{{ url }}"
-    ssl_ca_cert: "{{ cdn_redhat_com_chain }}"
+    ssl_ca_cert: "{{ 'Convert2RHEL ' + major_version + ' CA Chain' }}"
 
 - name: "{{ 'Sync Convert2RHEL ' + major_version + ' Repo' }}"
   redhat.satellite.repository_sync:
