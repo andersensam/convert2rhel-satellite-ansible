@@ -35,7 +35,8 @@
     validate_certs: "{{ satellite_validate_certs }}"
     name: "{{ 'Convert2RHEL ' + major_version + ' CA Chain' }}"
     content_type: cert
-    content: "{{ cdn_redhat_com_chain }}"
+    #content: "{{ cdn_redhat_com_chain }}"
+    content: "{{ lookup('file', 'cdn-redhat-com-chain.pem') }}"
     state: present
 
 - name: "{{ 'Create Convert2RHEL ' + major_version + ' Repo' }}"
