@@ -36,7 +36,7 @@
     name: "{{ 'Convert2RHEL ' + major_version + ' CA Chain' }}"
     content_type: cert
     content: "{{ lookup('file', 'cdn-redhat-com-chain.pem') }}"
-    state: present
+    state: absent
 
 - name: "{{ 'Create Convert2RHEL ' + major_version + ' Repo' }}"
   redhat.satellite.repository:
