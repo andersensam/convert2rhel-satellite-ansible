@@ -18,7 +18,7 @@
   yum_repository:
     name: convert2rhel
     description: Convert2RHEL for OS {{ ansible_distribution_major_version }}
-    baseurl: "http://ftp.redhat.com/pub/redhat/convert2rhel/{{ ansible_distribution_major_version }}/os/"
+    baseurl: "{{ 'https://cdn.redhat.com/content/public/convert2rhel/' + ansible_distribution_major_version + '/x86_64/os' }}"
     enabled: yes
     gpgcheck: yes
     gpgkey: "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release"
