@@ -3,7 +3,7 @@
   set_fact:
     product_name: "{{ satellite_centos_product_base_name + major_version }}"
     repo_name: "{{ satellite_centos_repo_base_name + major_version }}"
-    url: "{{ 'https://ftp.redhat.com/redhat/convert2rhel/' + major_version + '/os' }}"
+    url: "{{ 'https://cdn.redhat.com/content/public/convert2rhel/' + major_version + '/x86_64/os' }}"
     activation_key: "{{ satellite_centos_activation_key_base_name + major_version }}"
     hostgroup_name: "{{ satellite_centos_hostgroup_base_name + major_version + ' Hosts' }}"
 
