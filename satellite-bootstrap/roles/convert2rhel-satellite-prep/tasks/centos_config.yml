@@ -3,7 +3,7 @@
   set_fact:
     product_name: "{{ satellite_centos_product_base_name + major_version }}"
     repo_name: "{{ satellite_centos_repo_base_name + major_version }}"
-    url: "{{ 'https://ftp.redhat.com/redhat/convert2rhel/' + major_version + '/os' }}"
+    url: "{{ 'https://cdn.redhat.com/content/public/convert2rhel/' + major_version + '/x86_64/os' }}"
     activation_key: "{{ satellite_centos_activation_key_base_name + major_version }}"
     hostgroup_name: "{{ satellite_centos_hostgroup_base_name + major_version + ' Hosts' }}"
 
@@ -26,6 +26,18 @@
     validate_certs: "{{ satellite_validate_certs }}"
     name: "{{ product_name }}"
 
+- name: "{{ 'Create Credential for Convert2RHEL ' + major_version + ' Repo' }}"
+  redhat.satellite.content_credential:
+    username: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    server_url: "{{ satellite_server_url }}"
+    organization: "{{ satellite_organization }}"
+    validate_certs: "{{ satellite_validate_certs }}"
+    name: "{{ 'Convert2RHEL ' + major_version + ' CA Chain' }}"
+    content_type: cert
+    content: "{{ lookup('file', 'cdn-redhat-com-chain.pem') }}"
+    state: present
+
 - name: "{{ 'Create Convert2RHEL ' + major_version + ' Repo' }}"
   redhat.satellite.repository:
     username: "{{ satellite_username }}"
@@ -37,6 +49,7 @@
     content_type: "yum"
     product: "{{ product_name }}"
     url: "{{ url }}"
+    ssl_ca_cert: "{{ 'Convert2RHEL ' + major_version + ' CA Chain' }}"
 
 - name: "{{ 'Sync Convert2RHEL ' + major_version + ' Repo' }}"
   redhat.satellite.repository_sync:
