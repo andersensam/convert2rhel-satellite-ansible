@@ -37,6 +37,7 @@
     content_type: "yum"
     product: "{{ product_name }}"
     url: "{{ url }}"
+    ssl_ca_cert: files/cdn-redhat-com-chain.pem
 
 - name: "{{ 'Sync Convert2RHEL ' + major_version + ' Repo' }}"
   redhat.satellite.repository_sync:
