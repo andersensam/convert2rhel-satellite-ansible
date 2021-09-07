@@ -3,7 +3,7 @@
   fail:
     msg: "The variable 'use_svcansible' is not defined!"
   run_once: True
-  when: activation_key is not defined
+  when: use_svcansible is not defined
 
 - name: Variable activation_key is defined
   fail:
