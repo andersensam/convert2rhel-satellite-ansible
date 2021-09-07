@@ -76,7 +76,7 @@ Another valid configuration can be found below:
 activation_key: '123-456-789'
 convert2rhel_source: remote
 register_to_insights: 'True'
-rhel6_rhsm_preinstalled: 'Ture'
+rhel6_rhsm_preinstalled: 'True'
 satellite_organization: Convert2RHEL
 satellite_server_url: 'https://satellite-services.lab.redhat.com'
 use_svcansible: 'False'
