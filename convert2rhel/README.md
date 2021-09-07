@@ -20,48 +20,66 @@ setup_convert2rhel.yml      # Enable the convert2rhel repo and install required 
 slack_alert.yml             # Send an alert via Slack
 test_access.yml             # Test connectivity to remote hosts
 undo_setup.yml              # Undo changes made by previous steps
+update_all_packages.yml     # Update all packages and reboot the host
 ```
 
 ## Suggested Setup
 The recommended way to utilize the Convert2RHEL playbooks is to create a Workflow Template. The benefit of Workflow Template is that all survey variables (defined below) persist across playbooks, preventing manual entry between steps. Additionally, the Workflow can have logical breaks to check if the user wants to proceed. The recommended sequence is as follows:
 
 1. Check root access - password (`test_access.yml`): this playbook should leverage existing credentials, whether SSH key or password.
-2. Approval to create a service account: sanity check before creating a service account. Clicking approve allows the Workflow to proceed.
-3. Create Ansible Service Account (`create_user.yml`)
-4. Check root access - SSH key (`test_access.yml`): note that we are using the same playbook from step 1; however, we use a different credential: the SSH created for the service account (see prerequisites)
+2. Create Ansible Service Account (`create_user.yml`)
+3. Check root access - SSH key (`test_access.yml`): note that we are using the same playbook from step 1; however, we use a different credential: the SSH created for the service account (see prerequisites)
+4. Update all packages (`update_all_packages.yml`): update all installed packages and reboot the host. Required for successful conversions.
 5. Setup Convert2RHEL (`setup_convert2rhel.yml`)
 6. Satellite Client Setup (`satellite_host_config.yml`)
 7. Approval to finish conversion: this is another approval. Clicking approve leads to step 8a, deny leads to 8b.
 8. (a): Finish Conversion (`finish_conversion.yml`), (b): Rollback Convert2RHEL (`undo_setup.yml`): this playbook will rollback any changes made to the system in previous steps (remove the service account, remove the Convert2RHEL YUM repo, etc.)
 
-## Required Variables
+## Variable Definitions
 ```
-Variable                Suggested Value             Description
---------                ---------------             -----------
-use_svcansible          'True'                      Create a service account if true
-svcansible_username     svcansible                  Username of service account to create
-svcansible_home         /var/lib/                   Prefix for service account home directory. Using /var/lib creates the directory /var/lib/$(svcansible_username)
-svcansible_sudoer       'True'                      Add the service account to /etc/sudoers.d directory, allowing passwordless sudo
-svcansible_public_key                               The public SSH key to install to the remote host. Follows the format of ~/.ssh/authorized_keys
-satellite_server_url                                Satellite server URL, make sure to include "https://"
-satellite_organization                              Satellite organization the converted host should be placed into
-activation_key                                      Activation Key from Satellite
-register_to_insights    'True'                      Register the host to Red Hat Insights
-convert2rhel_source     remote                      Fetch the Convert2RHEL package from Red Hat, or from a local Satellite Server. When defined, please also define convert2rhel_activation_key
+Variable                      Required     Suggested Value             Description
+--------                      --------     ---------------             -----------
+use_svcansible                Yes          'True'                      Create a service account if true. Other supported value(s): 'False'
+svcansible_username           No           svcansible                  Username of service account to create
+svcansible_home               No           /var/lib/                   Prefix for service account home directory. Using /var/lib creates the directory /var/lib/$(svcansible_username)
+svcansible_sudoer             No           'True'                      Add the service account to /etc/sudoers.d directory, allowing passwordless sudo
+svcansible_public_key         No                                       The public SSH key to install to the remote host. Follows the format of ~/.ssh/authorized_keys
+satellite_server_url          Yes                                      Satellite server URL, make sure to include "https://"
+satellite_organization        Yes                                      Satellite organization the converted host should be placed into
+activation_key                Yes                                      Activation Key from Satellite
+register_to_insights          Yes          'True'                      Register the host to Red Hat Insights. Other supported value(s): 'False'
+convert2rhel_source           Yes          remote                      Source for Convert2RHEL package. Local fetches from Satellite. Other supported value(s): local
+convert2rhel_activation_key   No                                       Activation Key used to install Convert2RHEL from Satellite
+rhel6_rhsm_preinstalled       Yes          'True'                      Use the RHSM package already installed on EL6 hosts, otherwise fetch from rhel6_rhsm_repo. Other supported value(s): 'False'
+rhel6_rhsm_repo               No                                       URL of the RHSM repo to use if rhel6_rhsm_preinstalled == 'False'
 ```
 
 An example of a proper configuration is provided below:
 ```
-svcansible_username: svcansible
-svcansible_home: /var/lib/
-svcansible_sudoer: true
-svcansible_public_key: ssh-rsa <ssh-key-here> sam@samander-mac
-satellite_server_url: 'https://satellite-services.lab.redhat.com'
-satellite_organization: AnsibleLab
-activation_key: Ansible_RHEL7
-register_to_insights: true
+activation_key: '123-456-789'
+convert2rhel_activation_key: '987-654-321'
 convert2rhel_source: local
-convert2rhel_activation_key: '123-456-789'
+register_to_insights: 'True'
+rhel6_rhsm_preinstalled: 'False'
+rhel6_rhsm_repo: 'http://podman-host:9091/repo'
+satellite_organization: Convert2RHEL
+satellite_server_url: 'https://satellite-services.lab.redhat.com'
+svcansible_home: /var/lib/
+svcansible_public_key: ssh-rsa <ssh-key-here> sam@samander-mac
+svcansible_sudoer: 'True'
+svcansible_username: svcansible
+use_svcansible: 'True'
+```
+
+Another valid configuration can be found below:
+```
+activation_key: '123-456-789'
+convert2rhel_source: remote
+register_to_insights: 'True'
+rhel6_rhsm_preinstalled: 'Ture'
+satellite_organization: Convert2RHEL
+satellite_server_url: 'https://satellite-services.lab.redhat.com'
+use_svcansible: 'False'
 ```
 
 ## Other Design Considerations
