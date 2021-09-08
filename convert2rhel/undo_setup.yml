@@ -75,3 +75,8 @@
       when:
         - rhel6_rhsm_preinstalled == 'False'
         - ansible_distribution_version == '6.10'
+
+    - name: Convert2RHEL SSL directory is absent
+      file:
+        path: "/etc/rhsm/ca/"
+        state: absent

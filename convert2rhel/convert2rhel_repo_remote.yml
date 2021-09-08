@@ -14,6 +14,16 @@
     url: "https://www.redhat.com/security/data/fd431d51.txt"
     dest: "/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release"
 
+- name: Convert2RHEL SSL directory exists
+  file:
+    path: "/etc/rhsm/ca/"
+    state: directory
+
+- name: Download Red Hat Convert2RHEL SSL key
+  get_url:
+    url: "https://ftp.redhat.com/redhat/convert2rhel/redhat-uep.pem"
+    dest: "/etc/rhsm/ca/redhat-uep.pem"
+
 - name: Add Convert2RHEL repofile
   yum_repository:
     name: convert2rhel
@@ -22,7 +32,7 @@
     enabled: yes
     gpgcheck: yes
     gpgkey: "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release"
-    sslverify: no
+    sslcacert: "file:///etc/rhsm/ca/redhat-uep.pem"
 
 - name: Install convert2rhel for RHEL {{ ansible_distribution_major_version }} from yum repo
   yum:
