@@ -32,7 +32,7 @@
     enabled: yes
     gpgcheck: yes
     gpgkey: "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release"
-    sslcacert: "file:///etc/rhsm/ca/redhat-uep.pem"
+    sslcacert: "/etc/rhsm/ca/redhat-uep.pem"
 
 - name: Install convert2rhel for RHEL {{ ansible_distribution_major_version }} from yum repo
   yum:
