@@ -76,7 +76,7 @@ extra_vars:
 Variable                          Required     Suggested Value                   Description
 --------                          --------     ---------------                   -----------
 convert2rhel_versions             Yes          ['7', '8']                        Release versions of Convert2RHEL to use
-fetch_rhsm_manifest               Yes          true                              Pull a Satellite manifest directly from RHSM. Required RHSM credential to be present
+fetch_rhsm_manifest               Yes          true                              Pull a Satellite manifest directly from RHSM. Requires RHSM credential to be present
 rhsm_manifest_uuid                No                                             UUID of a manifest created in RHSM
 satellite_create_location         Yes          false                             Create a location in Satellite if it doesn't exist
 satellite_lifecycle_environment   Yes          Library                           Lifecycle Environment to use for Convert2RHEL
